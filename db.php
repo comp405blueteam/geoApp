@@ -1,5 +1,5 @@
 <?php
-class DatabaseFunctions{
+class Db{
 	
 	public function openDB(){
 		//open connection to db
