@@ -9,11 +9,11 @@ class Db {
             self::$conn = new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, $db, MYSQL_PORT);
 
             if (self::$conn->connect_errno) {
-                $this->error("Failed to connect to MySQL: (" . self::$conn->connect_errno . ") " . self::$conn->connect_error, $debug);
+                $this->error("Failed to connect to MySQL.", $debug);
             }
 
             if ($debug) {
-                $this->debug("<br/>" . $db . ": " . self::$conn->host_info . "</br>");
+                $this->debug("<br/>SUCCESSFUL CONNECTION</br>");
             }
 
             return self::$conn;
