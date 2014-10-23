@@ -10,8 +10,11 @@
     
     echo "<h2>Running MySQL Scripts</h2>";
     
-    $db->wipeDB(MYSQL_DATABASE, false);
-    $db->insertTestData(false);
+    if(!empty($_GET['data']) && (filter_input(INPUT_GET, "data", FILTER_SANITIZE_SPECIAL_CHARS) == 'reset')){
+        echo "<br/>Data Reset<br/>";
+        $db->wipeDB(MYSQL_DATABASE, false);
+        $db->insertTestData(false);
+    }    
     
     $sql = 
     "
