@@ -220,11 +220,11 @@ class Db {
                 
     }
     
-    function wipeDB($debug = true) {
+    function wipeDB($db, $debug = true) {
         $this->openDB("", $debug);
         //$this->dropDB(MYSQL_DATABASE, $debug);
         //$this->createDB(MYSQL_DATABASE, $debug);
-        $this->selectDb("geo_mineral");
+        $this->selectDb($db);
         
         if($this->isConnected()){
             

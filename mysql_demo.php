@@ -10,7 +10,7 @@
     
     echo "<h2>Running MySQL Scripts</h2>";
     
-    $db->wipeDB(false);
+    $db->wipeDB(MYSQL_DATABASE, false);
     $db->insertTestData(false);
     
     $sql = 
