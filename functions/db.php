@@ -453,7 +453,7 @@ class Db {
     }
     
     function runSQL($sql, $debug){
-        if ($this->sqlQuery($sql) === TRUE) {
+        if ($this->sqlQuery($sql) === true) {
             if($debug){
                 $this->debug("<br/>SUCCESS: " . $sql . "<br/>");
             }
