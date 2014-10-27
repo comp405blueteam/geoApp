@@ -241,7 +241,6 @@ class Db {
             
             $this->runSQL("SET foreign_key_checks = 1;", $debug);
             
-            
             $sql = 
             " 
             CREATE TABLE chemical 
