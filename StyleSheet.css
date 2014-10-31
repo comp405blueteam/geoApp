@@ -1,0 +1,247 @@
+.container { 
+    position:relative; 
+    width:100%;
+    height:100%;
+    font-family: Tahoma;
+}
+
+#sidebar {
+    position:absolute;
+    top:10%; 
+    width:20%;
+    height:90%;
+    border:1px solid #000;
+    background:#58ACFA;
+    font-size: 24;
+    text-align: center;
+}
+
+#sidebarQuickSearch {
+    position:absolute;
+    top:0%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarFullAnalysis {
+    position:absolute;
+    top:10%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarReportsLogs {
+    position:absolute;
+    top:20%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarUpperBlankSpace {
+    position:absolute;
+    top:30%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarManageAccounts {
+    position:absolute;
+    top:40%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarEditDatabase {
+    position:absolute;
+    top:50%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarLowerBlankSpace {
+    position:absolute;
+    top:60%;
+    width:99%;
+    height:10%;
+    border:1px solid #2E9AFE;
+}
+
+#sidebarUserInfo {
+    position:absolute;
+    top:70%;
+    width:99%;
+    height:30%;
+    border:1px solid #2E9AFE;
+}
+
+#applicationLogo {
+    position:absolute;
+    left:0;
+    top:0;
+    border:1px solid #000;
+    width:20%;
+    height:10%;
+}
+
+#header { 
+    position:absolute;
+    left:20%;
+    top:0;
+	border:1px solid #000; 
+    width:80%; 
+    height:10%; 
+}
+
+#headerTitle {
+    position:absolute;
+    left:3%;
+    top:35%;
+    font-size: 28;
+}
+
+#headerLogin {
+    position:absolute;
+    left:85%;
+    top:40%;
+    font-size: 16;
+    color:#2E9AFE;
+}
+
+#content {
+    position:absolute;
+    left:20%;
+    top:10%;
+	border:1px solid #000;
+    width:80%;
+    height:90%;
+}
+
+#contentLogin {
+    position:absolute;
+    left:20%;
+    top:30%;
+    width:60%;
+    height:40%;
+    font-size: 20;
+    text-align: center;
+    vertical-align: center;
+}
+
+#contentLeftWindow {
+    position:absolute;
+    left:0%;
+    width:40%;
+    height:100%;
+    font-size: 20;
+    text-align: center;
+    border-right:1px solid #000;
+}
+
+#contentLeftWindowContents {
+    position:absolute;
+    left:10%;
+    top:10%;
+    width:80%;
+    height:80%;
+    font-size: 20;
+    text-align: center;
+}
+
+#contentRightWindow {
+    position:absolute;
+    left:40%;
+    width:60%;
+    height:100%;
+    font-size: 20;
+    border:1px solid #000;
+}
+
+#contentRightWindowContents {
+    position:absolute;
+    left:5%;
+    top:5%;
+    width:90%;
+    height:90%;
+    font-size: 20;
+    border:1px solid #000;
+}
+
+#itemContainer {
+    position:absolute;
+    top:90%;
+    width:100%;
+    font-size: 20;
+    text-align: center;
+}
+
+#reportsLogsReportID {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:2%;
+    width:30%;
+    height:15%;
+}
+
+#reportsLogsElement {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:30%;
+    width:30%;
+    height:15%;
+}
+
+#reportsLogsDate {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:57%;
+    width:30%;
+    height:15%;
+}
+
+#reportsLogsSearchButton {
+    position:absolute;
+    font-size: 20;
+    top: 6%;
+    left: 90%;
+    width:10%;
+    height:15%;
+}
+
+#reportsLogsContent {
+    position:absolute;
+    font-size: 20;
+    top:15%;
+    left:2%;
+    height:80%;
+    width:96%;
+    border:1px solid #000;
+}
+
+#reportsLogsContentResults {
+    position:absolute;
+    font-size: 20;
+    top:5%;
+    left:2%;
+    height:80%;
+    width:96%;
+    border:1px solid #000;
+}
+
+#lowerContentButtons {
+    position:absolute;
+    font-size: 20;
+    text-align: right;
+    top: 90%;
+    left:2%;
+    height:10%;
+    width:96%;
+}
