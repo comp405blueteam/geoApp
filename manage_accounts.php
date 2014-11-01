@@ -35,7 +35,7 @@
     </div>
     
     <div id="content">
-        <form name="contentForm" id="contentForm">
+        <form name="contentForm" id="contentForm" method="POST">
     	   <div id="contentLeftWindow">
     		  <div id="contentLeftWindowContents">
     			 User name:</br>
