@@ -2,7 +2,7 @@
 session_start();
 include_once "user.php";
 include_once "db.php";
-
+include_once "utils.php";
 class accountManager{
 	
 	function addUserToDb($user){
@@ -21,7 +21,7 @@ class accountManager{
 		'" . (md5($user->$password)). "',
 		'" . ($user->$accountType) . "',
 		'1'
-		)
+		);
 		";
 		
 		// update db
@@ -31,12 +31,58 @@ class accountManager{
 
 	public function login(){
 		//Login Function
-		echo "login Called";
-	}
+		
+		// get creds from post
+		$userName = sanitize($_POST['usernameInput']);
+		$userPass = md5(sanitize($_POST['passwordInput']));
+		
+		// get number for id
+		$uid = preg_replace('/\D/', '', $userName);
+		
+		// get the last name
+		$lname = preg_replace('/[0-9]/', '', $userName);
+		
+		// create sql to auth user
+		$sql =
+		"
+		SELECT first_name, auth_level, user_id
+		FROM user
+		WHERE user_id = '" . $uid . "'
+		AND last_name = '" . $lname . "'
+		AND password = '" . $userPass . "';
+		";
+		
+		// get result
+		$result=$db->getRset($sql);
+		
+		// echo if invalid
+		if($result == "SQL QUERY FAILURE"){
+			echo "
+			<script>
+				window.alert('Invalid User/Pass');
+			</script>
+			<noscript>Invalid User or Pass</noscript>
+			";
+		}
+		else {
+			// set session variables
+			$_SESSION['AUTH_LEVEL'] = $result[0]['auth_level'];
+			$_SESSION['NAME'] = $result[0]['firstname'];
+			$_SESSION['UID'] = $result[0]['user_id'];
+			
+			// redirect to main page
+			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");
+		}
+		
+				
+	}	
     
 	public function logout(){
 		//Logout Function
-		echo "logout Called";
+		session_destroy();
+		
+		//redirect to login
+		header("Location: http://www.penguin.lhup.edu/~blueteam/geoApp/login.php");
 	}
     
 	public function requestAccount(){
@@ -100,14 +146,14 @@ class accountManager{
 		"
 		UPDATE user
 		SET auth_level
-		WHERE user_id = " . $user->$accountId;
+		WHERE user_id = '" . $user->$accountId . "';
+		";
 		
 		// update db with new status
 		$db->insert($sql);
 		
 		// change users priv
 		$user->$accountType = 1;
-		
 	}
 
 }

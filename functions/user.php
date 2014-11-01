@@ -44,7 +44,7 @@ class User{
 		$this->$accountId = $newId;
 		
 		// set account userName as the rName + id
-		$this->$userName = $rName . $newId;
+		$this->$userName = $lName . $newId;
 		
 		// set password to the userName!temp 
 		$this->$password = $this->$userName . "!temp";
