@@ -228,7 +228,7 @@ class Db {
         
         if($this->isConnected()){
             
-            $tables = array('chemical','object','result','analysis','user','contaminant');
+            $tables = array('chemical','object','result','analysis','user','contaminant', 'debug', 'error');
             
             $this->runSQL("SET foreign_key_checks = 0;", $debug);
             
@@ -238,6 +238,63 @@ class Db {
                 $this->runSQL($sql, $debug);
                 
             }
+            
+            $this->runSQL("DROP TRIGGER debug_delete;");
+            $this->runSQL("DROP TRIGGER error_delete;");
+            
+            $sql = 
+            "
+            CREATE TABLE debug 
+            (
+            timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            tag VARCHAR(30) DEFAULT NULL,
+            message varchar(1000) DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+            ";
+
+            $this->runSQL($sql);
+            
+            $sql = 
+            "
+            CREATE TABLE error 
+            (
+            timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            tag VARCHAR(30) DEFAULT NULL,
+            message VARCHAR(1000) DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+            ";
+
+            $this->runSQL($sql, $debug);
+            
+            $sql = 
+            "
+            CREATE TRIGGER debug_delete 
+            BEFORE INSERT ON debug
+            FOR EACH ROW 
+            BEGIN
+                SELECT COUNT(timestamp) INTO @cnt FROM debug;
+                IF @cnt >= 1000 THEN
+                    DELETE FROM debug ORDER BY timestamp ASC LIMIT 1;
+                END IF;
+            END;
+            ";
+
+            $this->runSQL($sql, $debug);
+            
+            $sql = 
+            "
+            CREATE TRIGGER error_delete 
+            BEFORE INSERT ON error
+            FOR EACH ROW 
+            BEGIN
+                SELECT COUNT(timestamp) INTO @cnt FROM error;
+                IF @cnt >= 1000 THEN
+                    DELETE FROM error ORDER BY timestamp ASC LIMIT 1;
+                END IF;
+            END;
+            ";
+
+            $this->runSQL($sql, $debug);
             
             $this->runSQL("SET foreign_key_checks = 1;", $debug);
             
@@ -254,7 +311,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
             
-            $sql = "
+            $sql = 
+                    "
             CREATE TABLE object 
             (
             object_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -266,7 +324,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             CREATE TABLE contaminant 
             (
             contam_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -280,7 +339,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             CREATE TABLE user 
             (
             user_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -297,7 +357,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             CREATE TABLE analysis 
             (
             analysis_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -312,7 +373,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             CREATE TABLE result 
             (
             result_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -326,16 +388,9 @@ class Db {
             ";
 
             $this->runSQL($sql, $debug);
-
-            $sql = "
-            ALTER TABLE contaminant
-            ADD FOREIGN KEY (chemical_id)
-            REFERENCES chemical(chemical_id)
-            ";
-
-            $this->runSQL($sql, $debug);
-
-            $sql = "
+            
+            $sql = 
+            "
             ALTER TABLE contaminant
             ADD FOREIGN KEY (object_id)
             REFERENCES object(object_id)
@@ -343,7 +398,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             ALTER TABLE result
             ADD FOREIGN KEY (analysis_id)
             REFERENCES analysis(analysis_id)
@@ -351,7 +407,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             ALTER TABLE result
             ADD FOREIGN KEY (contam_id)
             REFERENCES contaminant(contam_id)
@@ -359,7 +416,8 @@ class Db {
 
             $this->runSQL($sql, $debug);
 
-            $sql = "
+            $sql = 
+            "
             ALTER TABLE analysis
             ADD FOREIGN KEY (user_id)
             REFERENCES user(user_id)
@@ -376,12 +434,16 @@ class Db {
         $results = array();
         
         if($this->isConnected()){
-            if ($result = $conn->query($sql)) {
+            $result = $conn->query($sql);
+            
+            if (!$result === false) {
                 while ($row = $result->fetch_assoc()) {
                     $results[count($results)] = $row;
                 }
 
                 $result->free();
+            }else{
+                $this->error($sql, "SQL QUERY FAILURE");
             }                
         }
         
@@ -394,9 +456,13 @@ class Db {
         $row = array();
         
         if($this->isConnected()){
-            if ($result = $conn->query($sql)) {
+             $result = $conn->query($sql);
+            
+            if (!$result === false) {
                 $row = $result->fetch_assoc();
-            }
+            }else{
+                $this->error($sql, "SQL QUERY FAILURE");
+            }    
         }
         
         return $row;
@@ -409,10 +475,14 @@ class Db {
         $value = null;
         
         if($this->isConnected()){
-            if ($result = $conn->query($sql)) {
+             $result = $conn->query($sql);
+            
+            if (!$result === false) {
                 $row = $result->fetch_array(MYSQLI_NUM);
                 $value = $row[0];
-            }
+            }else{
+                $this->error($sql, "SQL QUERY FAILURE");
+            }    
         }
         
         return $value;
@@ -432,32 +502,58 @@ class Db {
         }
     }
 
-    function error($mesg, $debug = false) {
+    function error($mesg, $tag = '') {
         //figure out more extensive error handling later
-        echo $mesg;
+        $sql = 
+        "
+        INSERT INTO error
+        (message, tag)
+        VALUES
+        (
+        \"".$mesg."\",
+        '".$tag."'
+        )
+        ";
+        
+        if ($this->isConnected()) {
+            $this->sqlQuery($sql);
+        }
     }
 
-    function debug($mesg) {
-        echo $mesg;
+    function debug($mesg, $tag = '') {
+        $sql = 
+        "
+        INSERT INTO debug
+        (message, tag)
+        VALUES
+        (
+        \"".$mesg."\",
+        '".$tag."'
+        )
+        ";
+        
+        if ($this->isConnected()) {
+            $this->sqlQuery($sql);
+        }
     }
     
     function isConnected(){
         $conn = $this->openDB();
         if ($conn->connect_errno) {
-            error("Connect failed: %s\n", $mysqli->connect_error);
+            //error("Connect failed: ". $conn->connect_error, "Connection Error");
             return false;
         }else{
             return true;
         }
     }
     
-    function runSQL($sql, $debug){
+    function runSQL($sql, $debug = false){
         if ($this->sqlQuery($sql) === true) {
             if($debug){
-                $this->debug("<br/>SUCCESS: " . $sql . "<br/>");
+                $this->debug("SUCCESS: " . $sql, "SQL");
             }
         } else {
-            $this->error("<br/>FAILURE: " . $sql . "<br/>", $debug);
+            $this->error("FAILURE: " . $sql, "SQL");
         }
     }
     

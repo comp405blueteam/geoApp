@@ -12,8 +12,8 @@
     
     if(!empty($_GET['data']) && (filter_input(INPUT_GET, "data", FILTER_SANITIZE_SPECIAL_CHARS) == 'reset')){
         echo "<br/>Data Reset<br/>";
-        $db->wipeDB(MYSQL_DATABASE, false);
-        $db->insertTestData(false);
+        $db->wipeDB(MYSQL_DATABASE, true);
+        $db->insertTestData(true);
     }    
     
     $sql = 
@@ -56,7 +56,7 @@
         <td>".$res[$i]['active']."</td>
         ";
         
-        echo "<tr>";
+        echo "</tr>";
     }
     
     echo "</table>";
@@ -94,7 +94,7 @@
         <td>".$res[$i]['timestamp']."</td>
         ";
         
-        echo "<tr>";
+        echo "</tr>";
     }
     
     echo "</table>";
