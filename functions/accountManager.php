@@ -1,35 +1,49 @@
+
 <?php
 session_start();
-include_once "user.php";
-include_once "db.php";
-include_once "utils.php";
-class accountManager{
+include_once("user.php");
+include_once("db.php");
+include_once("utils.php");
+include_once("/home/blueteam/public_html/constants.php");	
+
+Class AccountManager{
+
 	
-	function addUserToDb($user){
+
+	public function addUserToDb(User $user){ 
+		
+		$db = Db::getDbInstance();		
+		
 		// add a user to database function
 		// create sql statement for updating database
+		
+		//echo "Inserting user". $user->accountId . $user->email . $user->firstName . $user->lastName . md5($user->password) . $user->accountType;
 		$sql =
 		"
 		INSERT INTO user
 		(user_id, email, first_name, last_name, password, auth_level, active)
 		VALUES
 		(
-		'" . ($user->$accountId) . "',
-		'" . ($user->$email) . "',
-		'" . ($user->$firstName) . "',
-		'" . ($user->$lastName) . "',
-		'" . (md5($user->$password)). "',
-		'" . ($user->$accountType) . "',
+		'" . $user->accountId . "',
+		'" . $user->email . "',
+		'" . $user->firstName . "',
+		'" . $user->lastName . "',
+		'" . md5($user->password) . "',
+		'" . $user->accountType . "',
 		'1'
 		);
 		";
-		
+		//echo "about to Qury db..  " . $sql;		
 		// update db
 		$db->insert($sql);
-				
+		
+		echo "  Login info is: " . $user->lastName . $user->accountId . "  " . $user->password;
 	}
 
 	public function login(){
+	 	
+		$db = Db::getDbInstance();
+		
 		//Login Function
 		
 		// get creds from post
@@ -51,27 +65,34 @@ class accountManager{
 		AND last_name = '" . $lname . "'
 		AND password = '" . $userPass . "';
 		";
-		
+
 		// get result
 		$result=$db->getRset($sql);
 		
 		// echo if invalid
-		if($result == "SQL QUERY FAILURE"){
+		if(empty($result)){
+			
+			//header( "Location: http://penguin.lhup.edu/~blueteam/geoApp/login.php" );
 			echo "
-			<script>
-				window.alert('Invalid User/Pass');
+			<script type='text/javascript'>
+				function Inval(){
+					alert('Invalid User/Pass');
+				}
+				Inval();
 			</script>
 			<noscript>Invalid User or Pass</noscript>
 			";
+			//header("Location: http://penguin.lhup.edu/~blueteam/geoApp/login.php");
 		}
 		else {
+			//echo "Setting sessions";
 			// set session variables
 			$_SESSION['AUTH_LEVEL'] = $result[0]['auth_level'];
 			$_SESSION['NAME'] = $result[0]['firstname'];
 			$_SESSION['UID'] = $result[0]['user_id'];
 			
 			// redirect to main page
-			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");
+			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/reports_logs.php");
 		}
 		
 				
@@ -100,12 +121,14 @@ class accountManager{
 	}
     
 	public function createUser(){
-		// create user function
+		// create user function		
 		$user = new user($_POST['userNameInput'], $_POST['emailInput']);
+		//echo "User Atribs: " . $user->accountId . $user->email . $user->lastName . $user->firstName . $user->password;
 		
 		// add a new user to db
-		addUserToDb($user);
-		
+		self::addUserToDb($user);
+		//echo "User was added to DB";
+
 		// return the newly created user
 		return $user;				
 	}
@@ -140,6 +163,8 @@ class accountManager{
 	}
 
 	public function grantAdmin($user){
+		$db = Db::getDbInstance();
+		
 		// grant admin function
 		// make sql statement
 		$sql =
@@ -157,4 +182,5 @@ class accountManager{
 	}
 
 }
+	$accountManager= new accountManager();
 ?>
