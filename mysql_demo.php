@@ -5,6 +5,7 @@
     require_once("../constants.php");
     require_once("functions/gui.php");
     require_once("functions/db.php");
+    $db = Db::getDbInstance();
     
     header_out("PHP Script Testing");
     

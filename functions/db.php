@@ -3,6 +3,16 @@
 class Db {
 
     protected static $conn;
+    protected static $db;
+    
+    public static function getDbInstance(){
+        if(!isset(self::$db)){
+            self::$db = new Db();
+            return self::$db;
+        }else{
+            return self::db;
+        }
+    }
     
     function openDB($db = MYSQL_DATABASE, $debug = false) {
         if (!isset(self::$conn)) {
@@ -560,6 +570,5 @@ class Db {
 
 }
 
-$db = new Db();
 
 ?>
