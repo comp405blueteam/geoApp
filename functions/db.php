@@ -10,7 +10,7 @@ class Db {
             self::$db = new Db();
             return self::$db;
         }else{
-            return self::db;
+            return self::$db;
         }
     }
     
