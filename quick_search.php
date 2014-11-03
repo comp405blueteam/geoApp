@@ -50,7 +50,7 @@
 		
 		$results = $db->getRset($sql);		
 		
-		echo "<table>";
+		echo "<table width='100%'>";
 		
 		echo "<tr>";
 			
