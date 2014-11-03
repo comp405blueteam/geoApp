@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-<?php
-
-echo "Index Works";
-
-?>
-=======
-
-
-<?php
+<<?php
 	
 	include_once("functions/accountManager.php");
 	session_start();
@@ -76,4 +67,3 @@ echo "Index Works";
 </div>
 
 </html>
->>>>>>> ae86d5cd37fa4f71b8e0ac06f72f0806c43fcfef

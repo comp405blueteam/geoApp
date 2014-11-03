@@ -501,7 +501,7 @@ class Db {
     public function update($sql, $debug = false) {
         // updates based on sql statement
         if ($this->isConnected()) {
-            runSQL($sql, $debug);
+            $this->runSQL($sql, $debug);
         }
     }
 
