@@ -54,9 +54,9 @@
 		
 		echo "<tr>";
 			
-		echo "<th>"."<p>Item Type</p>"."</th>";
-		echo "<th>"."<p>Element</p>"."</th>";
-		echo "<th>"."<p>Contaminant Level</p>"."</th>";
+		echo "<th align='left'>"."<p>Item Type</p>"."</th>";
+		echo "<th align='left'>"."<p>Element</p>"."</th>";
+		echo "<th align='left'>"."<p>Contaminant Level</p>"."</th>";
 			
 		echo "</tr>";
 		
@@ -116,9 +116,9 @@
 		
 		echo "<tr>";
 			
-		echo "<th>"."<p>Item Type</p>"."</th>";
-		echo "<th>"."<p>Element</p>"."</th>";
-		echo "<th>"."<p>Contaminant Level</p>"."</th>";
+		echo "<th align='left'>"."<p>Item Type</p>"."</th>";
+		echo "<th align='left'>"."<p>Element</p>"."</th>";
+		echo "<th align='left'>"."<p>Contaminant Level</p>"."</th>";
 			
 		echo "</tr>";
 		
