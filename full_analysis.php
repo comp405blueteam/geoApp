@@ -2,8 +2,9 @@
 
     session_start();
 
-    require_once("../geoApp/functions/db.php");
     require_once("../constants.php");
+    require_once("../geoApp/functions/db.php");
+    $db = Db::getDbInstance();
     
     $chemicals = array();
     $objects = array();
