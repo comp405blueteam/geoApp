@@ -54,9 +54,9 @@
 		
 		echo "<tr>";
 			
-		echo "<td>"."<p>Item Type</p>"."</td>";
-		echo "<td>"."<p>Element</p>"."</td>";
-		echo "<td>"."<p>Contaminant Level</p>"."</td>";
+		echo "<th>"."<p>Item Type</p>"."</th>";
+		echo "<th>"."<p>Element</p>"."</th>";
+		echo "<th>"."<p>Contaminant Level</p>"."</th>";
 			
 		echo "</tr>";
 		
@@ -112,13 +112,13 @@
 		
 		$results = $db->getRset($sql);		
 		
-		echo "<table>";
+		echo "<table width='100%'>";
 		
 		echo "<tr>";
 			
-		echo "<td>"."<p>Item Type</p>"."</td>";
-		echo "<td>"."<p>Element</p>"."</td>";
-		echo "<td>"."<p>Contaminant Level</p>"."</td>";
+		echo "<th>"."<p>Item Type</p>"."</th>";
+		echo "<th>"."<p>Element</p>"."</th>";
+		echo "<th>"."<p>Contaminant Level</p>"."</th>";
 			
 		echo "</tr>";
 		
