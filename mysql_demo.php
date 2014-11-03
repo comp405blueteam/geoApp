@@ -1,14 +1,20 @@
 <?php
-
-
     session_start();
+    
+    
     
     require_once("../constants.php");
     require_once("functions/gui.php");
     require_once("functions/db.php");
     $db = Db::getDbInstance();
     
-    header_out("PHP Script Testing");
+    $title = "MySQL Demo";
+    
+    openHeader($title);
+    closeHeader($title);
+    
+    echo '<div id="content">';
+    echo '<div style="margin-left:20px">';
     
     echo "<h2>Running MySQL Scripts</h2>";
     
@@ -122,6 +128,9 @@
             
     $db->closeDb();
     
-    footer_out();
+    echo '</div>';
+    echo '</div>';
+    
+    outputFooter();
 
 ?>

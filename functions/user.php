@@ -2,7 +2,7 @@
 <?php
 include_once("db.php");
 include_once("utils.php");
-include_once("/home/blueteam/public_html/constants.php");
+include_once("../constants.php");
 
 
 class User{

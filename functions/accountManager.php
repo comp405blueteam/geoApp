@@ -4,7 +4,7 @@ session_start();
 include_once("user.php");
 include_once("db.php");
 include_once("utils.php");
-include_once("/home/blueteam/public_html/constants.php");	
+include_once("../constants.php");	
 
 Class AccountManager{
 
@@ -88,11 +88,11 @@ Class AccountManager{
 			//echo "Setting sessions";
 			// set session variables
 			$_SESSION['AUTH_LEVEL'] = $result[0]['auth_level'];
-			$_SESSION['NAME'] = $result[0]['firstname'];
+			$_SESSION['NAME'] = $result[0]['first_name'];
 			$_SESSION['UID'] = $result[0]['user_id'];
 			
 			// redirect to main page
-			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/reports_logs.php");
+			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");
 		}
 		
 				

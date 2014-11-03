@@ -6,7 +6,9 @@
     require_once("functions/gui.php");
     require_once("functions/db.php");
 
-    header_out("Error Messages");
+    $title = 'Errors';
+    openHeader($title);
+    closeHeader($title);
     
     $sql = 
     "
@@ -45,7 +47,7 @@
     
     $db->closeDb();
     
-    footer_out();
+    outputFooter();
 
 ?>
 

@@ -3,6 +3,7 @@
     session_start();
 
     require_once("../constants.php");
+    require_once("functions/gui.php");
     require_once("../geoApp/functions/db.php");
     $db = Db::getDbInstance();
     
@@ -29,59 +30,27 @@
 <?php
 
     function listChemicals($chemicals) {
-        foreach($chemicals as $row) {
-        foreach($row as $chemical) {
-        echo '<option value="' . $chemical . '">' . $chemical . '</option>';
-        }
+        foreach ($chemicals as $row) {
+            foreach ($row as $chemical) {
+                echo '<option value="' . $chemical . '">' . $chemical . '</option>';
+            }
         }
     }
 
     function listObjects($objects) {
-        foreach($objects as $row) {
-        foreach($row as $object) {
-        echo '<option value="' . $object . '">' . $object . '</option>';
-        }
+        foreach ($objects as $row) {
+            foreach ($row as $object) {
+                echo '<option value="' . $object . '">' . $object . '</option>';
+            }
         }
     }
+    
+    $title = "Full Analysis";
+    openHeader($title);
+    closeHeader($title);
 
 ?>
-
-<html>
-
-<head><link href="StyleSheet.css" rel="stylesheet" type="text/css"></head>
-
-<div class="container">
    
-   <div id="sidebar">
-        <div id="sidebarQuickSearch">
-            <a href="quick_search.php"> <img style="max-width:100%; max-height:100%;" src="images/quick_search_label.png" /></a>
-        </div>
-        <div id="sidebarFullAnalysis">
-            <a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>
-        </div>
-        <div id="sidebarReportsLogs">
-            <a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>
-        </div>
-        <div id="sidebarUpperBlankSpace"></div>
-        <div id="sidebarManageAccounts">
-            <a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>
-        </div>
-        <div id="sidebarEditDatabase">
-            <a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>
-        </div>
-        <div id="sidebarLowerBlankSpace"></div>
-        <div id="sidebarUserInfo">CURRENT USER INFO</div>
-    </div>
-    
-    <div id="applicationLogo">IMAGE</div>
-    
-    <div id="header">
-    	<div id="headerTitle">Full Analysis</div>
-    	<div id="headerLogin">
-            <a href="login.php">Login/Logout</a>
-        </div>
-    </div>
-    
     <div id="content">
         <form name="contentForm" id="contentForm">
     	   <div id="contentLeftWindow">
@@ -113,6 +82,4 @@
         </form>
     </div>
 
-</div>
-
-</html>
+<?php outputFooter(); ?>

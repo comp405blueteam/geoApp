@@ -6,7 +6,9 @@
     require_once("functions/gui.php");
     require_once("functions/db.php");
 
-    header_out("Debug Messages");
+    openHeader();
+    echo "<title>Edit Database - CIT</title>";
+    closeHeader();
     
     $sql = 
     "
@@ -45,7 +47,7 @@
     
     $db->closeDb();
     
-    footer_out();
+    outputFooter();
 
 ?>
 

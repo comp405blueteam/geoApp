@@ -1,7 +1,8 @@
 
 <?php
 	session_start();
-	include_once("functions/accountManager.php");	
+	include_once("functions/accountManager.php");
+        require_once("functions/gui.php");
 	
 	// if it is a post check for the fields and createUser()
 	if($_POST){
@@ -13,43 +14,13 @@
 	}
 	// check if the session auth is allowed  otherwise redirect to login page
 	//if($_SESSION['AUTH_LEVEL'] != 1){ header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");}
+        
+        $title = 'Manage Accounts';
+        openHeader($title);
+        closeHeader($title);
 ?>
 
-<html>
 
-<head><link href="StyleSheet.css" rel="stylesheet" type="text/css"></head>
-
-<div class="container">
-    
-    <div id="sidebar">
-        <div id="sidebarQuickSearch">
-            <a href="quick_search.php"> <img style="max-width:100%; max-height:100%;" src="images/quick_search_label.png" /></a>
-        </div>
-        <div id="sidebarFullAnalysis">
-            <a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>
-        </div>
-        <div id="sidebarReportsLogs">
-            <a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>
-        </div>
-        <div id="sidebarUpperBlankSpace"></div>
-        <div id="sidebarManageAccounts">
-            <a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>
-        </div>
-        <div id="sidebarEditDatabase">
-            <a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>
-        </div>
-        <div id="sidebarLowerBlankSpace"></div>
-        <div id="sidebarUserInfo">CURRENT USER INFO</div>
-    </div>
-    
-    <div id="applicationLogo">IMAGE</div>
-    
-    <div id="header">
-    	<div id="headerTitle">Manage Accounts</div>
-    	<div id="headerLogin">
-            <a href="login.php">Login/Logout</a>
-        </div>
-    </div>
     
     <div id="content">
         <form name="contentForm" id="contentForm" method="POST" action="manage_accounts.php">
@@ -80,6 +51,4 @@
         </form>
     </div>
 
-</div>
-
-</html>
+<?php outputFooter(); ?>
