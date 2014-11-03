@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<?php
-
-echo "Index Works";
-
-?>
-=======
-
 
 <?php
 	
@@ -76,4 +68,3 @@ echo "Index Works";
 </div>
 
 </html>
->>>>>>> ae86d5cd37fa4f71b8e0ac06f72f0806c43fcfef

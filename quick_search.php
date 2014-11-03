@@ -5,6 +5,7 @@
     require_once("../geoApp/functions/db.php");
     require_once("../constants.php");
 	require_once("functions/utils.php");
+	$db = Db::getDbInstance();
     
     $chemicals = array();
     $objects = array();
@@ -28,10 +29,9 @@
 	if (isset($_POST['element']) || isset($_POST['object'])){
 		$element = trim(sanitize(cleanInput($_POST['element'])));
 		$object = trim(sanitize(cleanInput($_POST['object'])));
-		
 		$sql =
 		"
-		SELECT contaminant.danger_level, object.object_name
+		SELECT contaminant.danger_level, object.object_name, chemical_name
 		FROM contaminant
 		JOIN object USING(object_id)
 		JOIN chemical USING(chemical_id)
@@ -98,12 +98,9 @@
 ?>
 
 <?php
-
-	require_once("../geoApp/functions/db.php");
-	require_once("../constants.php");
-	$db = Db::getDbInstance();
 	
 	function initialContent(){
+	$db = Db::getDbInstance();
 	
 		$sql =
 		"
