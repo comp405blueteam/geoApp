@@ -1,10 +1,7 @@
 <?php
+require_once("db.php");
+
 class Analysis{
-	
-	public function quickSearch(){
-		//quickSearch Function
-		echo "quickSearch Called";
-	}
     
 	public function analyze(){
 		//analyze Function
