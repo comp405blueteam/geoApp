@@ -36,21 +36,21 @@ function closeHeader($title){
         <div id="sidebar">
             <div id="sidebarQuickSearch">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 0) {
+                    if($_SESSION['AUTH_LEVEL'] >= 0) {
                         displayLink('<a href="quick_search.php"> <img style="max-width:100%; max-height:100%;" src="images/quick_search_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarFullAnalysis">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 0) {
+                    if($_SESSION['AUTH_LEVEL'] >= 0) {
                         displayLink('<a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarReportsLogs">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 0) {
+                    if($_SESSION['AUTH_LEVEL'] >= 0) {
                         displayLink('<a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>'); 
                     }
                 ?>
