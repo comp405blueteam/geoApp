@@ -175,16 +175,16 @@ $.ajax({
         <form name="contentForm" id="contentForm">
     	   <div id="contentLeftWindow">
     		  <div id="contentLeftWindowContents">
-    			 Element:</br>
+    			 Element:<br/>
     			 <select name="elementSelect" id="elementSelect" onChange="searchChange()">
     				 <option value="">All</option>
                      <?php listChemicals($chemicals); ?>
-    			 </select></br></br>
-    			 Item type:</br>
+    			 </select><br/><br/>
+    			 Item type:<br/>
     			 <select name="objectSelect" id="objectSelect" onChange="searchChange()">
     				 <option value="">All</option>
                      <?php listObjects($objects); ?>
-    			 </select></br>
+    			 </select><br/>
     		  </div>
     	   </div>
     	   <div id="contentRightWindow">

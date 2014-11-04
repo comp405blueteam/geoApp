@@ -37,13 +37,13 @@
     <div id="content">
         <form name="contentForm" id="contentForm">
     	   <div id="reportsLogsReportID">
-    		  Report ID: <input name="reportIdInput" id="reportIdInput"></input>
+    		  Report ID: <input name="reportIdInput" id="reportIdInput">/>
     	   </div>
     	   <div id="reportsLogsElement">
-    		  Element: <input name="elementInput" id="elementInput"></input>
+    		  Element: <input name="elementInput" id="elementInput">/>
     	   </div>
     	   <div id="reportsLogsDate">
-    		  Date: <input name="dateInput" id="dateInput"></input>
+    		  Date: <input name="dateInput" id="dateInput">/>
     	   </div>
     	   <div id="reportsLogsSearchButton">
     		  <button name="searchButton" id="searchButton">Search</button>
