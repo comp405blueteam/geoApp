@@ -27,9 +27,9 @@
     	   <div id="contentLeftWindow">
     		  <div id="contentLeftWindowContents">
     			 User name:<br/>
-    			 <input name="userNameInput" id="userNameInput">/><br/><br/>
+    			 <input name="userNameInput" id="userNameInput"/><br/><br/>
     			 User email:<br/>
-    			 <input name="emailInput" id="emailInput">/><br/>
+    			 <input name="emailInput" id="emailInput"/><br/>
     			 <div id="itemContainer">
     				    <button name="runSearchButton" id="runSearchButton">Run Search</button>
     			 </div>

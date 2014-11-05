@@ -66,7 +66,7 @@
                          <?php listObjects($objects); ?>
     			 </select><br/><br/>
     			 PPM:<br/>
-    			 <input name="ppmInput" id="ppmInput">/><br/><br/>
+    			 <input name="ppmInput" id="ppmInput"/><br/><br/>
     			 <button name="addButton">Add</button><br/><br/>
     			 <textarea disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:30%;";>RESULTS - USERS CANNOT EDIT TEXTFIELD</textarea>
     			 <div id="itemContainer">
