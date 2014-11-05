@@ -43,14 +43,14 @@ function closeHeader($title){
             </div>
             <div id="sidebarFullAnalysis">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] >= 0) {
+                    if(!empty($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarReportsLogs">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] >= 0) {
+                    if(!empty($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>'); 
                     }
                 ?>
