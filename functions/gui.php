@@ -36,21 +36,21 @@ function closeHeader($title){
         <div id="sidebar">
             <div id="sidebarQuickSearch">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="quick_search.php"> <img style="max-width:100%; max-height:100%;" src="images/quick_search_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarFullAnalysis">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarReportsLogs">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>'); 
                     }
                 ?>
@@ -58,15 +58,19 @@ function closeHeader($title){
             <div id="sidebarUpperBlankSpace"></div>
             <div id="sidebarManageAccounts">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 1) {
-                        displayLink('<a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>'); 
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
+                        if($_SESSION['AUTH_LEVEL'] == 1) {
+                            displayLink('<a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>'); 
+                        }
                     }
                 ?>
             </div>
             <div id="sidebarEditDatabase">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 1) {
-                        displayLink('<a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>'); 
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
+                        if($_SESSION['AUTH_LEVEL'] == 1) {
+                            displayLink('<a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>'); 
+                        }
                     }
                 ?>
             </div>
