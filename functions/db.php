@@ -567,6 +567,15 @@ class Db {
         }
     }
     
+    function real_escape_string($string){
+        if($this->isConnected()){
+            $conn = $this->openDB();
+            return $conn->real_escape_string($string);
+        }
+        
+        return $string;
+    }
+    
 
 }
 
