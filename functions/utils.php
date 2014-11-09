@@ -23,7 +23,7 @@
                 $input = stripslashes($input);
             }
             $input = cleanInput($input);
-            $output = mysql_real_escape_string($input);
+            $output = $db->realEscapeString($input);
         }
         return $output;
 }

@@ -92,7 +92,7 @@ Class AccountManager{
 			$_SESSION['UID'] = $result[0]['user_id'];
 			
 			// redirect to main page
-			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");
+			header("Location: ".BASE_URL."quick_search.php");
 		}
 		
 				
@@ -103,7 +103,7 @@ Class AccountManager{
 		session_destroy();
 		
 		//redirect to login
-		header("Location: http://www.penguin.lhup.edu/~blueteam/geoApp/login.php");
+		header("Location: ".BASE_URL."login.php");
 	}
     
 	public function requestAccount(){

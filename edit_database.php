@@ -15,13 +15,50 @@
         exit;
     }
     
+    if(isset($_POST['elementInput'])){
+        $element = trim(sanitize($_POST['elementInput']));
+        if(!empty($element)){
+            $sql = 
+            "
+            INSERT INTO chemical
+            (chemical_name)
+            VALUES
+            (
+            '".$element."'
+            )
+            ";
+            
+            $db->update($sql, true);
+        }
+        outputOptionsById("chemical","chemical_id","chemical_name");
+        exit;
+    }
+    
+    if(isset($_POST['objectInput'])){
+        $object = trim(sanitize($_POST['objectInput']));
+        if(!empty($object)){
+            $sql = 
+            "
+            INSERT INTO object
+            (object_name)
+            VALUES
+            (
+            '".$object."'
+            )
+            ";
+            
+            $db->update($sql, true);
+        }
+        outputOptionsById("object","object_id","object_name");
+        exit;
+    }
+    
     if(isset($_POST['element']) && isset($_POST['object']) && isset($_POST['ppm'])){
         $element = trim(sanitize($_POST['element']));
         $object = trim(sanitize($_POST['object']));
         $ppm = trim(sanitize($_POST['ppm']));
         
         if(!empty($element) && !empty($object) && !empty($ppm)){
-            ini_set('display_errors',1); error_reporting(E_ALL);
             
             $sql = 
             "
@@ -42,33 +79,24 @@
         exit;
     }
     
-    $chemicals = array();
-    $objects = array();
-
-    $sql =
-    "
-    SELECT chemical_id AS id, chemical_name AS name
-    FROM chemical
-    ";
-
-    $chemicals = $db->getRset($sql);
-
-    $sql =
-    "
-    SELECT object_id AS id, object_name AS name
-    FROM object
-    ";
-
-    $objects = $db->getRset($sql);
-
-    function outputOptionsById($items){
+    function outputOptionsById($table, $idColum, $nameColumn){
+        $db = Db::getDbInstance();
+        $sql = 
+        "
+        SELECT ".$idColum." AS id, ".$nameColumn." AS name
+        FROM ".$table."
+        ";
+        
+        $items = $db->getRset($sql);
+        
+        echo '<option value="">Select an option...</option>';
         for($i = 0;$i<count($items);$i++){
             echo '<option value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
         }
     }
     
     function listContaminants(){
-        global $db;
+        $db = Db::getDbInstance();
         $sql = 
         "
         SELECT chemical_name, object_name, danger_level
@@ -105,7 +133,6 @@
     <script>
     
         var databaseUpdates = [];
-    
     
         function addContamLevel(){
             var element = document.getElementById('elementSelect').value;
@@ -162,17 +189,17 @@
             
             var list = "list";
             var dataString = {listContaminants:list};
-                $.ajax({        
-                    type: "POST",
-                    url: <?php echo "'".BASE_URL."edit_database.php'" ?>,
-                    data: dataString,
-                    cache: false,
-                    success: function(html)
-                    {
-                        document.getElementById("resultsTextarea").innerHTML = html;
-                    }
-                    
-                });
+            $.ajax({        
+                type: "POST",
+                url: <?php echo "'".BASE_URL."edit_database.php'" ?>,
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    document.getElementById("resultsTextarea").innerHTML = html;
+                }
+
+            });
                 
             document.getElementById("addTextarea").innerHTML = "<table width='100%' name='addTable' id='addTable'> \
                                                                         <tr> \
@@ -183,38 +210,99 @@
                                                                     </table>";
             
         }
-
         
+        function addElement(){
+            var element = prompt("Enter the name of the new element: ");
+            if(element == ""){
+                alert('Invalid element');
+                return;
+            }
+            
+            var dataString = {elementInput:element};
+            $.ajax({        
+                type: "POST",
+                url: <?php echo "'".BASE_URL."edit_database.php'" ?>,
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    document.getElementById("elementSelect").innerHTML = html+'<option>element</option>';
+                }
+
+            });
+        }
+        
+        function addObject(){
+            var object = prompt("Enter the name of the new object: ");
+            if(object == ""){
+                alert('Invalid object');
+                return;
+            }
+            
+            var dataString = {objectInput:object};
+            $.ajax({        
+                type: "POST",
+                url: <?php echo "'".BASE_URL."edit_database.php'" ?>,
+                data: dataString,
+                cache: false,
+                success: function(html)
+                {
+                    document.getElementById("objectSelect").innerHTML = html+'<option>object</option>';
+                }
+
+            });
+        }
+                
     </script>
     
 <?php closeHeader($title); ?> 
     
     <div id="content">
         <form name="contentForm" id="contentForm">
-    	   <div id="contentLeftWindow">
-    		  <div id="contentLeftWindowContents">
-    			Element:<br/>
-    			<select name="elementSelect" id="elementSelect">
-    			      <option value="">Select an element...</option>
-                      <?php outputOptionsById($chemicals); ?>
-    			 </select><br/><br/>
-    			 Item type:<br/>
-    			 <select name="objectSelect" id="objectSelect">
-    			      <option value="">Select an item type...</option>
-                      <?php outputOptionsById($objects); ?>
-    			 </select><br/><br/>
-    			 New PPM:<br/>
-    			 <input name="ppmInput" id="ppmInput"/><br/><br/>
-                         <button type="button" name="addButton" id="addButton" onclick="addContamLevel();" >Add</button><br/><br/>
-    			 <div disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:30%;">
-                    <table width="100%" name="addTable" id="addTable">
+            <div id="contentLeftWindow">
+                <div id="contentLeftWindowContents">
+                    <table>
                         <tr>
-                            <th>Element</th>
-                            <th>Object</th>
-                            <th>New PPM</th>
+                            <td>
+                                Element:<br/>
+                                <select name="elementSelect" id="elementSelect">
+                                    <?php outputOptionsById("chemical","chemical_id","chemical_name"); ?>
+                                </select>
+                                <br/><br/>
+                            </td>
+                            <td>
+                                <button type="button" onclick="addElement();">Add Element</button>
+                            </td>
                         </tr>
-                    </table>
-                 </div>
+                        <tr>
+                            <td>
+                                Item type:<br/>
+                                <select name="objectSelect" id="objectSelect">
+                                    <?php outputOptionsById("object","object_id","object_name"); ?>
+                                </select><br/><br/>
+                            </td>
+                            <td>
+                                <button type="button" onclick="addObject();">Add Object</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                New PPM:<br/>
+                                <input name="ppmInput" id="ppmInput"/><br/><br/>
+                            </td>
+                        </tr>
+    			 </table>
+                         <button type="button" name="addButton" id="addButton" onclick="addContamLevel();" >Add</button><br/><br/>
+                    
+    			 <div disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:30%;">
+                            <table width="100%" name="addTable" id="addTable">
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Object</th>
+                                    <th>New PPM</th>
+                                </tr>
+                            </table>
+                        </div>
     			 <div id="itemContainer">
     				    <button type="button" name="confirmChangesButton" id="confirmChangesButton" onclick="updateDatabase();">Confirm Changes</button><br/><br/>
                         Caution: Changes made to the database are permanent

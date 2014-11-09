@@ -245,3 +245,57 @@
     height:10%;
     width:96%;
 }
+
+#reportHeader{
+    border: 2px solid #a1a1a1;
+    padding: 10px 20px;
+    width: 520px;
+    border-radius: 12px;
+}
+
+#reportHeader p:first-child{
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 18;
+    margin-bottom: 5px;
+}
+
+#reportHeader>p{
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#reportBox{
+    border: 2px solid #a1a1a1;
+    padding: 10px 20px;
+    width: 520px;
+    border-radius: 9px;
+}
+
+#reportBox>table{
+    width: 100%;
+}
+
+#reportBox>table th{
+    text-align: left;
+}
+
+#dangerous{
+    background-color: #F0F051;
+}
+
+#dangerous td:last-child{
+    text-align: center;
+}
+
+#reportBox>table img{
+    height: 20px;
+    width: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+th {
+    text-align: left;
+}
