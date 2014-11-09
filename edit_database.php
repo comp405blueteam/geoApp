@@ -304,7 +304,9 @@
                             </table>
                         </div>
     			 <div id="itemContainer">
-    				    <button type="button" name="confirmChangesButton" id="confirmChangesButton" onclick="updateDatabase();">Confirm Changes</button><br/><br/>
+    				    <button type="button" name="confirmChangesButton" id="confirmChangesButton" 
+                                            onclick="if(confirm('You are about to make changes to the database. Click OK to proceed or Cancel to return.')) 
+                                            updateDatabase(); else alert('Changes cancelled')">Confirm Changes</button><br/><br/>
                         Caution: Changes made to the database are permanent
     			 </div>
     		  </div>
