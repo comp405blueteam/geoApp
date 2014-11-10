@@ -153,6 +153,19 @@
     text-align: center;
 }
 
+#contentLeftWindowContents>table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contentLeftWindowContents>table td{
+    text-align:center;
+}
+
+#contentLeftWindowContents>table tr td:first-child{
+    font-weight: bold;
+}
+
 #contentRightWindow {
     position:absolute;
     left:40%;
