@@ -11,6 +11,7 @@
         return $output;
     }
  
+    
     // Sanitization function
     function sanitize($input) {
         $db=Db::getDbInstance();

@@ -1,9 +1,10 @@
 
 <?php
 session_start();
-include_once("user.php");
+
 include_once("../../constants.php");	
 include_once("db.php");
+include_once("user.php");
 include_once("utils.php");
 
 
