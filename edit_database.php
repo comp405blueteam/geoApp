@@ -2,12 +2,8 @@
 
     session_start();
 
-    require_once("../constants.php");
-    require_once("functions/utils.php");
-    require_once("functions/db.php");
-    require_once("functions/gui.php");   
-    
-    
+    require_once("inc_functions.php");
+        
     $db = Db::getDbInstance();
     
     if(isset($_POST['listContaminants'])){

@@ -1,8 +1,9 @@
 <?php
 	
-    include_once("functions/accountManager.php");
-    require_once("functions/gui.php");
+    
     session_start();
+    
+    require_once("inc_functions.php");
 
     // if this is a post try to login
     if(isset($_POST['usernameInput'])){
