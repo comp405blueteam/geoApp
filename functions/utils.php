@@ -13,6 +13,7 @@
  
     // Sanitization function
     function sanitize($input) {
+        $db=Db::getDbInstance();
         if (is_array($input)) {
             foreach($input as $var=>$val) {
                 $output[$var] = sanitize($val);
