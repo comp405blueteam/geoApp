@@ -61,7 +61,7 @@
                        
                        if($results[$i]['is_dangerous'] == 1){
                            $danger_row = "id='dangerous'";
-                           $danger_image = "<img src='/images/danger.png'>";
+                           $danger_image = "<img src='images/danger.png'>";
                        }
                         
                        echo '<tr '.$danger_row.'>';
