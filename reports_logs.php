@@ -19,6 +19,7 @@
         exit;
     }
     
+    
     if(isset($_GET['singleReportId'])){
         $title = 'Report Log';
         openHeader($title);
