@@ -143,13 +143,31 @@ Class AccountManager{
 	}
 
 	public function resetPassword(){
-		//reset password function
-		echo "reset password called";
+		// forgot password function
+		echo "
+		<script>
+		function sendEmail(){
+		window.open('mailto:$user->email')
+		}
+		sendEmail($user->password);
+		</script>
+		<noscript>Please turn javascript on</noscript>
+		";
 	}
 
 	public function deleteUser(){
+
+		$db = Db::getDbInstance(); 
+
+		echo "User " + $user + " deleted";
+		//logout
+		session_destroy();
+	
+		//redirect to login
+		header("Location: ".BASE_URL."login.php");
+
 		//delete user function
-		echo "delete user called";
+		$sql = "DELETE FROM MYSQL_DATABASE WHERE id = $user";
 	}
 
 	public function archiveReports(){
