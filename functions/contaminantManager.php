@@ -5,7 +5,7 @@ Class ContaminantManager{
     
     public static function getCMInstance(){
         if(!isset(self::$cm)){
-            self::$cm = new Db();
+            self::$cm = new ContaminantManager();
             return self::$cm;
         }else{
             return self::$cm;
