@@ -12,83 +12,47 @@
     }
     
     if(isset($_POST['elementInput'])){
+        $cm = ContaminantManager::getCMInstance();
+        
         $element = trim(sanitize($_POST['elementInput']));
         if(!empty($element)){
-            $sql = 
-            "
-            INSERT INTO chemical
-            (chemical_name)
-            VALUES
-            (
-            '".$element."'
-            )
-            ";
-            
-            $db->update($sql, true);
+            $cm->addChemical($element);
         }
+        
         outputOptionsById("chemical","chemical_id","chemical_name");
         exit;
     }
     
     if(isset($_POST['objectInput'])){
+        $cm = ContaminantManager::getCMInstance();
+        
         $object = trim(sanitize($_POST['objectInput']));
         if(!empty($object)){
-            $sql = 
-            "
-            INSERT INTO object
-            (object_name)
-            VALUES
-            (
-            '".$object."'
-            )
-            ";
-            
-            $db->update($sql, true);
+            $cm->addObject($object);
         }
+        
         outputOptionsById("object","object_id","object_name");
         exit;
     }
     
     if(isset($_POST['element']) && isset($_POST['object']) && isset($_POST['ppm'])){
+        $cm = ContaminantManager::getCMInstance();
+        
         $element = trim(sanitize($_POST['element']));
         $object = trim(sanitize($_POST['object']));
         $ppm = trim(sanitize($_POST['ppm']));
         
         if(!empty($element) && !empty($object) && !empty($ppm)){
             
-            $sql = 
-            "
-            UPDATE contaminant
-            SET danger_level = ".$ppm."
-            WHERE chemical_id = ".$element."
-            AND object_id = ".$object."
-            ";
+            $cm->updateContaminant($element, $object, $ppm);
             
-            $db->update($sql);
-            
-            echo $sql;
+            echo 'Updated';
             
             exit;
         }
         
         echo "Invalid parameters";
         exit;
-    }
-    
-    function outputOptionsById($table, $idColum, $nameColumn){
-        $db = Db::getDbInstance();
-        $sql = 
-        "
-        SELECT ".$idColum." AS id, ".$nameColumn." AS name
-        FROM ".$table."
-        ";
-        
-        $items = $db->getRset($sql);
-        
-        echo '<option value="">Select an option...</option>';
-        for($i = 0;$i<count($items);$i++){
-            echo '<option value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
-        }
     }
     
     function listContaminants(){

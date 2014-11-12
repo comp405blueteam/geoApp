@@ -139,4 +139,21 @@ function displayLink($link) {
     echo $link;
 }
 
+function outputOptionsById($table, $idColum, $nameColumn){
+    $db = Db::getDbInstance();
+    
+    $sql = 
+    "
+    SELECT ".$idColum." AS id, ".$nameColumn." AS name
+    FROM ".$table."
+    ";
+
+    $items = $db->getRset($sql);
+
+    echo '<option value="">Select an option...</option>';
+    for($i = 0;$i<count($items);$i++){
+        echo '<option value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
+    }
+}
+
 ?>
