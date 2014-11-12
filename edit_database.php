@@ -173,7 +173,7 @@
         
         function addElement(){
             var element = prompt("Enter the name of the new element: ");
-            if(element == ""){
+            if(!element|| element == ""){
                 alert('Invalid element');
                 return;
             }
@@ -186,7 +186,7 @@
                 cache: false,
                 success: function(html)
                 {
-                    document.getElementById("elementSelect").innerHTML = html+'<option>element</option>';
+                    document.getElementById("elementSelect").innerHTML = html;
                 }
 
             });
@@ -194,7 +194,7 @@
         
         function addObject(){
             var object = prompt("Enter the name of the new object: ");
-            if(object == ""){
+            if(!object || object == ""){
                 alert('Invalid object');
                 return;
             }
@@ -207,7 +207,7 @@
                 cache: false,
                 success: function(html)
                 {
-                    document.getElementById("objectSelect").innerHTML = html+'<option>object</option>';
+                    document.getElementById("objectSelect").innerHTML = html;
                 }
 
             });
