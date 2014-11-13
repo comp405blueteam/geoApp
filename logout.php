@@ -1,6 +1,7 @@
 <?php
 
-include_once("functions/accountManager.php");
+require_once("inc_functions.php");
+session_start();
 $accountManager->logout();
 
 ?>

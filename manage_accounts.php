@@ -1,8 +1,9 @@
 
 <?php
-	session_start();
-	include_once("functions/accountManager.php");
-        require_once("functions/gui.php");
+	require_once("inc_functions.php");
+
+        session_start();
+	
 	
 	// if it is a post check for the fields and createUser()
 	if($_POST){

@@ -321,6 +321,9 @@ class Db {
 
             $this->runSQL($sql, $debug);
             
+            $sql = "ALTER TABLE chemical ADD UNIQUE (chemical_name)";
+            $this->runSQL($sql, $debug);
+            
             $sql = 
                     "
             CREATE TABLE object 
@@ -332,6 +335,9 @@ class Db {
             ENGINE=InnoDB DEFAULT CHARSET=utf8
             ";
 
+            $this->runSQL($sql, $debug);
+            
+            $sql = "ALTER TABLE object ADD UNIQUE (object_name)";
             $this->runSQL($sql, $debug);
 
             $sql = 
@@ -567,8 +573,16 @@ class Db {
         }
     }
     
+    function realEscapeString($string){
+        if($this->isConnected()){
+            $conn = $this->openDB();
+            return $conn->real_escape_string($string);
+        }
+        
+        return $string;
+    }
+    
 
 }
-
 
 ?>

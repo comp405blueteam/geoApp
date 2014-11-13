@@ -21,6 +21,23 @@ function openHeader($title){
         <title><?php echo $title ?> - CIT</title>
 
         <link href="StyleSheet.css" rel="stylesheet" type="text/css">
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?php echo BASE_URL; ?>images/icons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>images/icons/favicon-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>images/icons/favicon-160x160.png" sizes="160x160">
+        <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>images/icons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>images/icons/favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>images/icons/favicon-32x32.png" sizes="32x32">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="<?php echo BASE_URL; ?>images/icons/mstile-144x144.png">
  
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
         
@@ -36,21 +53,21 @@ function closeHeader($title){
         <div id="sidebar">
             <div id="sidebarQuickSearch">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="quick_search.php"> <img style="max-width:100%; max-height:100%;" src="images/quick_search_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarFullAnalysis">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="full_analysis.php"> <img style="max-width:100%; max-height:100%;" src="images/full_analysis_label.png" /></a>'); 
                     }
                 ?>
             </div>
             <div id="sidebarReportsLogs">
                 <?php
-                    if(!empty($_SESSION['AUTH_LEVEL'])) {
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
                         displayLink('<a href="reports_logs.php"> <img style="max-width:100%; max-height:100%;" src="images/reports_logs_label.png" /></a>'); 
                     }
                 ?>
@@ -58,15 +75,19 @@ function closeHeader($title){
             <div id="sidebarUpperBlankSpace"></div>
             <div id="sidebarManageAccounts">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 1) {
-                        displayLink('<a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>'); 
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
+                        if($_SESSION['AUTH_LEVEL'] == 1) {
+                            displayLink('<a href="manage_accounts.php"> <img style="max-width:100%; max-height:100%;" src="images/manage_accounts_label.png" /></a>'); 
+                        }
                     }
                 ?>
             </div>
             <div id="sidebarEditDatabase">
                 <?php
-                    if($_SESSION['AUTH_LEVEL'] == 1) {
-                        displayLink('<a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>'); 
+                    if(isset($_SESSION['AUTH_LEVEL'])) {
+                        if($_SESSION['AUTH_LEVEL'] == 1) {
+                            displayLink('<a href="edit_database.php"> <img style="max-width:100%; max-height:100%;" src="images/edit_database_label.png" /></a>'); 
+                        }
                     }
                 ?>
             </div>
@@ -84,7 +105,7 @@ function closeHeader($title){
             </div>
         </div>
 
-        <div id="applicationLogo">IMAGE</div>
+        <div id="applicationLogo"> <img style="max-width:100%; max-height:100%;" src="images/eagle.png" /> </div>
 
         <div id="header">
             <div id="headerTitle"><?php echo $title; ?></div>
@@ -116,6 +137,23 @@ function outputFooter(){
 
 function displayLink($link) {
     echo $link;
+}
+
+function outputOptionsById($table, $idColum, $nameColumn){
+    $db = Db::getDbInstance();
+    
+    $sql = 
+    "
+    SELECT ".$idColum." AS id, ".$nameColumn." AS name
+    FROM ".$table."
+    ";
+
+    $items = $db->getRset($sql);
+
+    echo '<option value="">Select an option...</option>';
+    for($i = 0;$i<count($items);$i++){
+        echo '<option value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
+    }
 }
 
 ?>

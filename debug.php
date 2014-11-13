@@ -2,9 +2,7 @@
 
     session_start();
 
-    require_once("../constants.php");
-    require_once("functions/gui.php");
-    require_once("functions/db.php");
+    require_once("inc_functions.php");
 
     openHeader();
     echo "<title>Edit Database - CIT</title>";

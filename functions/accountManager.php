@@ -1,10 +1,5 @@
 
 <?php
-session_start();
-include_once("user.php");
-include_once("db.php");
-include_once("utils.php");
-include_once("../constants.php");	
 
 Class AccountManager{
 
@@ -92,7 +87,7 @@ Class AccountManager{
 			$_SESSION['UID'] = $result[0]['user_id'];
 			
 			// redirect to main page
-			header("Location: http://penguin.lhup.edu/~blueteam/geoApp/quick_search.php");
+			header("Location: ".BASE_URL."quick_search.php");
 		}
 		
 				
@@ -103,7 +98,7 @@ Class AccountManager{
 		session_destroy();
 		
 		//redirect to login
-		header("Location: http://www.penguin.lhup.edu/~blueteam/geoApp/login.php");
+		header("Location: ".BASE_URL."login.php");
 	}
     
 	public function requestAccount(){
@@ -148,13 +143,31 @@ Class AccountManager{
 	}
 
 	public function resetPassword(){
-		//reset password function
-		echo "reset password called";
+		// forgot password function
+		echo "
+		<script>
+		function sendEmail(){
+		window.open('mailto:$user->email')
+		}
+		sendEmail($user->password);
+		</script>
+		<noscript>Please turn javascript on</noscript>
+		";
 	}
 
 	public function deleteUser(){
+
+		$db = Db::getDbInstance(); 
+
+		echo "User " + $user + " deleted";
+		//logout
+		session_destroy();
+	
+		//redirect to login
+		header("Location: ".BASE_URL."login.php");
+
 		//delete user function
-		echo "delete user called";
+		$sql = "DELETE FROM MYSQL_DATABASE WHERE id = $user";
 	}
 
 	public function archiveReports(){

@@ -1,13 +1,8 @@
 <?php
+    require_once("inc_functions.php");
 
     session_start();
 
-    require_once("../constants.php");
-    require_once("functions/gui.php");
-    require_once("../geoApp/functions/db.php");
-    require_once("functions/analysis.php");
-    require_once("functions/utils.php");
-	
     $db = Db::getDbInstance();
     
     $chemicals = array();

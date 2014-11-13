@@ -11,8 +11,10 @@
         return $output;
     }
  
+    
     // Sanitization function
     function sanitize($input) {
+        $db=Db::getDbInstance();
         if (is_array($input)) {
             foreach($input as $var=>$val) {
                 $output[$var] = sanitize($val);
@@ -23,7 +25,7 @@
                 $input = stripslashes($input);
             }
             $input = cleanInput($input);
-            $output = mysql_real_escape_string($input);
+            $output = $db->realEscapeString($input);
         }
         return $output;
 }
