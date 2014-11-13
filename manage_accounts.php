@@ -220,11 +220,11 @@
 
     
     <div id="content">
-        <div id="reportsLogsReportID">
+        <div id="searchBarReportID">
             Name:
             <input name="userNameInput" id="userNameInput" onchange="searchAccounts();"/>
         </div>
-        <div id="reportsLogsElement">
+        <div id="searchBarElement">
             Email:
             <input name="emailInput" id="emailInput" onchange="searchAccounts();"/>
         </div>
@@ -233,9 +233,9 @@
         </div>
 
 
-        <div id="reportsLogsContent">
+        <div id="mainContent">
 
-            <div id="reportsLogsContentResults">
+            <div id="mainContentResults">
                 <?php displayUsers(); ?>
             </div>
         </div>

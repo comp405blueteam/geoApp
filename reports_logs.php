@@ -183,20 +183,20 @@
     
     <div id="content">
         <form name="contentForm" id="contentForm">
-    	   <div id="reportsLogsReportID">
+    	   <div id="searchBarReportID">
     		  Report ID: <input name="reportIdInput" id="reportIdInput"/>
     	   </div>
-    	   <div id="reportsLogsElement">
+    	   <div id="searchBarElement">
     		  Element: <input name="elementInput" id="elementInput"/>
     	   </div>
-    	   <div id="reportsLogsDate">
+    	   <div id="searchBarDate">
     		  Date: <input name="dateInput" id="dateInput"/>
     	   </div>
-    	   <div id="reportsLogsSearchButton">
+    	   <div id="searchBarSearchButton">
                <button type="button" name="searchButton" id="searchButton" onclick="getReports();">Search</button>
     	   </div>
-    	   <div id="reportsLogsContent">
-    		  <div id="reportsLogsContentResults">
+    	   <div id="mainContent">
+    		  <div id="mainContentResults">
     			 <div id="resultsTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:99%;";><?php getReports(); ?></div>
     		  </div>
     		  <div id="lowerContentButtons">

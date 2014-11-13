@@ -196,7 +196,7 @@
     text-align: center;
 }
 
-#reportsLogsReportID {
+#searchBarReportID {
     position:absolute;
     font-size: 20;
     top:6%;
@@ -205,7 +205,7 @@
     height:15%;
 }
 
-#reportsLogsElement {
+#searchBarElement {
     position:absolute;
     font-size: 20;
     top:6%;
@@ -228,7 +228,7 @@
     cursor: hand;
 }
 
-#reportsLogsDate {
+#searchBarDate {
     position:absolute;
     font-size: 20;
     top:6%;
@@ -237,7 +237,7 @@
     height:15%;
 }
 
-#reportsLogsSearchButton {
+#searchBarSearchButton {
     position:absolute;
     font-size: 20;
     top: 6%;
@@ -246,7 +246,7 @@
     height:15%;
 }
 
-#reportsLogsContent {
+#mainContent {
     position:absolute;
     font-size: 20;
     top:15%;
@@ -256,7 +256,7 @@
     border:1px solid #000;
 }
 
-#reportsLogsContentResults {
+#mainContentResults {
     position:absolute;
     font-size: 20;
     top:5%;
