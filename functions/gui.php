@@ -105,7 +105,7 @@ function closeHeader($title){
             </div>
         </div>
 
-        <div id="applicationLogo">IMAGE</div>
+        <div id="applicationLogo"> <img style="max-width:100%; max-height:100%;" src="images/eagle.png" /> </div>
 
         <div id="header">
             <div id="headerTitle"><?php echo $title; ?></div>
