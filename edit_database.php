@@ -55,36 +55,6 @@
         exit;
     }
     
-    function listContaminants(){
-        $db = Db::getDbInstance();
-        $sql = 
-        "
-        SELECT chemical_name, object_name, danger_level
-        FROM contaminant
-        JOIN chemical USING (chemical_id)
-        JOIN object USING (object_id)
-        ";
-                                
-        $contams = $db->getRset($sql);
-
-        echo "<table width = '100%'>";
-
-        echo "<tr>";
-        echo "<th>Element Name</th>";
-        echo "<th>Object Name</th>";
-        echo "<th>Danger Level</th>";
-        echo "</tr>";
-
-        for($i = 0;$i < count($contams);$i++){
-            echo "<tr>";
-            echo "<td>".$contams[$i]['chemical_name']."</td>";
-            echo "<td>".$contams[$i]['object_name']."</td>";
-            echo "<td>".$contams[$i]['danger_level']."</td>";
-            echo "</tr>";
-        }
-
-        echo "</table>";
-    }
     
     $title = 'Edit Database';
     openHeader($title);

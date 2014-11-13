@@ -73,6 +73,8 @@
 }
 
 #sidebarUserInfo {
+    color: white;
+    font-style: italic;
     position:absolute;
     top:70%;
     width:99%;
@@ -209,6 +211,18 @@
     left:30%;
     width:30%;
     height:15%;
+}
+
+#createUser {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:80%;
+    height:15%;
+}
+
+#userTable tr:not(:first-child):hover{
+    background-color: #FF8080;
 }
 
 #reportsLogsDate {

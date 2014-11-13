@@ -156,4 +156,91 @@ function outputOptionsById($table, $idColum, $nameColumn){
     }
 }
 
+function displayUsers($name = "", $email = ""){
+    $am = AccountManager::getAmInstance();
+    $users = $am->getUsers($name, $email);
+    
+    echo "<table width='100%' id='userTable'>";
+    echo "<tr>";
+    echo "<th>User ID</th>";
+    echo "<th>Email</th>";
+    echo "<th>First Name</th>";
+    echo "<th>Last Name</th>";
+    echo "<th>Admin?</th>";
+    echo "<th>Active?</th>";
+    echo "</tr>";
+    
+    for($i = 0;$i<count($users);$i++){
+        $admin = "No";
+        $active = "No";
+        
+        if($users[$i]['auth_level']){
+            $admin = "Yes";
+        }
+        
+        if($users[$i]['active']){
+            $active = "Yes";
+        }
+        
+        echo "<tr onclick='displayEdit(".$users[$i]['user_id'].")'>";
+            echo "<td>".$users[$i]['user_id']."</td>";
+            echo "<td>".$users[$i]['email']."</td>";
+            echo "<td>".$users[$i]['first_name']."</td>";
+            echo "<td>".$users[$i]['last_name']."</td>";
+            echo "<td>".$admin."</td>";
+            echo "<td>".$active."</td>";
+        echo "</tr>";
+    }
+    
+    echo "</table>";
+}
+
+function listContaminants(){
+        $db = Db::getDbInstance();
+        $sql = 
+        "
+        SELECT contam_id, chemical_name, object_name, danger_level
+        FROM contaminant
+        JOIN chemical USING (chemical_id)
+        JOIN object USING (object_id)
+        ";
+                                
+        $contams = $db->getRset($sql);
+
+        echo "<table width = '100%'>";
+
+        echo "<tr>";
+        echo "<th>Element Name</th>";
+        echo "<th>Object Name</th>";
+        echo "<th>Danger Level</th>";
+        echo "</tr>";
+
+        for ($i = 0; $i < count($contams); $i++) {
+            echo "<tr>";
+                echo "<form method='POST' action='edit_database.php'>";
+                echo "<td>" . $contams[$i]['chemical_name'] . "</td>";
+                echo "<td>" . $contams[$i]['object_name'] . "</td>";
+                echo "<td>" . $contams[$i]['danger_level'] . "</td>";
+                echo "<td><input type='hidden' value='" . $contams[$i]['contam_id'] . "'/><button type='button' >Delete</button></td>";
+                echo "</form>";
+            echo "</tr>";
+        }
+
+    echo "</table>";
+    }
+    
+    function getYesNoSelect($field, $name){
+        $select = "";
+        $select .= '<select id="'.$name.'">';
+            if($field){
+                $select .= '<option selected value="1">Yes</option>';
+                $select .= '<option value="0">No</option>';
+            }else{
+                $select .= '<option value="1">Yes</option>';
+                $select .= '<option selected value="0">No</option>';
+            }
+        $select .= '</select>';
+        return $select;
+    }
+
 ?>

@@ -3,7 +3,10 @@
 
 Class AccountManager{
 
-	
+	public static function getAMInstance(){
+            global $accountManager;
+            return $accountManager;
+        }
 
 	public function addUserToDb(User $user){ 
 		
@@ -127,6 +130,35 @@ Class AccountManager{
 		// return the newly created user
 		return $user;				
 	}
+        
+        public function updateUser($fields, $values, $restriction){
+            $db = Db::getDbInstance();
+            
+            if(count($fields) != count($values)){
+                return;
+            }
+            
+            $sql = 
+            "
+            UPDATE user
+            SET
+            ";
+            
+            for($i=0;$i<count($fields);$i++){
+                if($i==0){
+                    $sql .= $fields[$i]."=".$values[$i];
+                    continue;
+                }
+                
+                $sql .= ",".$fields[$i]."=".$values[$i];
+            }
+            
+            $sql .= " WHERE ".$restriction[0]."=".$restriction[1];
+                       
+            echo $sql;
+            
+            $db->runSQL($sql); 
+        }
 
 	public function forgotPassword(){
 		// forgot password function
@@ -155,20 +187,39 @@ Class AccountManager{
 		";
 	}
 
-	public function deleteUser(){
+	public function deleteUser($uid){
+            
 
 		$db = Db::getDbInstance(); 
 
-		echo "User " + $user + " deleted";
-		//logout
-		session_destroy();
-	
-		//redirect to login
-		header("Location: ".BASE_URL."login.php");
-
-		//delete user function
-		$sql = "DELETE FROM MYSQL_DATABASE WHERE id = $user";
+		$sql = 
+                "
+                UPDATE user
+                SET active = 0
+                WHERE user_id = $uid
+                LIMIT 1
+                ";
+                
+                $db->runSQL($sql, true);
 	}
+        
+        public function activateUser($uid){
+            
+
+		$db = Db::getDbInstance(); 
+
+		$sql = 
+                "
+                UPDATE user
+                SET active = 1
+                WHERE user_id = $uid
+                LIMIT 1
+                ";
+                
+                $db->runSQL($sql, true);
+	}
+        
+        
 
 	public function archiveReports(){
 		//archive reports function
@@ -193,6 +244,39 @@ Class AccountManager{
 		// change users priv
 		$user->$accountType = 1;
 	}
+        
+        function getUsers($name = "", $email = ""){
+            $db = Db::getDbInstance();
+            
+            $sql = 
+            "
+            SELECT * 
+            FROM user
+            WHERE user_id = user_id
+            ";
+            
+            if(!empty($name)){
+                $sql .= 
+                "
+                AND (first_name LIKE '".$name."' OR last_name LIKE '".$name."')
+                ";
+                
+            }
+            
+            if(!empty($email)){
+                $sql .= 
+                "
+                AND email LIKE '".$email."'
+                ";
+            }
+            
+            $sql .= 
+            "
+            ORDER BY last_name
+            ";
+            
+            return $db->getRset($sql);
+        }
 
 }
 	$accountManager= new accountManager();

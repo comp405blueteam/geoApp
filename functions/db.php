@@ -466,7 +466,7 @@ class Db {
         return $results;
     }
 
-    public function getRow() {
+    public function getRow($sql) {
         //gets a single row result set
         $conn = $this->openDB();
         $row = array();
