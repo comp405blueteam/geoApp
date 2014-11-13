@@ -111,7 +111,7 @@
         ";
         
         if(!empty($element)){
-            $sql .= "AND chemical_name LIKE '".$element."'";
+            $sql .= "AND chemical_name LIKE '%".$element."%'";
         }
         
         if(!empty($reportId)){

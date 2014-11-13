@@ -15,6 +15,15 @@
 		}
 	}
         
+        if(isset($_POST['name']) && isset($_POST['email'])){
+            $name = sanitize($_POST['name']);
+            $email = sanitize($_POST['email']);
+            
+            displayUsers($name, $email);
+            
+            exit();
+        }
+        
         if(isset($_POST['id']) && isset($_POST['action'])){
             
             $uid = sanitize($_POST['id']);
@@ -72,6 +81,26 @@
 
         <script>
             
+        function searchAccounts(){
+            var name = document.getElementById('userNameInput').value;
+            var email = document.getElementById('emailInput').value;
+            
+            var dataString = {name:name, email:email};
+            $.ajax({        
+                type: "POST",
+                url: <?php echo "'".BASE_URL."manage_accounts.php'" ?>,
+                data: dataString,
+                async: false,
+                cache: false,
+                success: function(html)
+                {
+                    document.getElementById('reportsLogsContentResults').innerHTML =  html;
+                    return;
+                    //alert(html);
+                }
+            });
+        }    
+            
         function updateUser(){
             var id = document.getElementById('duid').value;
             var fname = document.getElementById('firstNameInput').value;
@@ -91,10 +120,12 @@
                 success: function(html)
                 {
                     //document.getElementById('resultsTextarea').innerHTML =  html;
-                    //return;
+                    return;
                     alert(html);
                 }
             });
+            
+            self.close();
         }
         
         function deleteUser(act){
@@ -114,7 +145,7 @@
                 cache: false,
                 success: function(html)
                 {
-                    alert(html);
+                    //alert(html);
                     return;
                     alert(html);
                 }
@@ -191,11 +222,11 @@
     <div id="content">
         <div id="reportsLogsReportID">
             Name:
-            <input name="userNameInput" id="userNameInput"/>
+            <input name="userNameInput" id="userNameInput" onchange="searchAccounts();"/>
         </div>
         <div id="reportsLogsElement">
             Email:
-            <input name="emailInput" id="emailInput"/>
+            <input name="emailInput" id="emailInput" onchange="searchAccounts();"/>
         </div>
         <div id="createUser">
             <button name="createNewUserButton" id="createNewUserButton" type="submit">Create User</button>
