@@ -219,7 +219,8 @@
 
 
     
-    <div id="content">
+    <div id=content>
+    <form id="makeUser" name ="makeUser" method="POST" action="manage_accounts.php">
         <div id="searchBarReportID">
             Name:
             <input name="userNameInput" id="userNameInput" onchange="searchAccounts();"/>
@@ -231,6 +232,7 @@
         <div id="createUser">
             <button name="createNewUserButton" id="createNewUserButton" type="submit">Create User</button>
         </div>
+    </form>
 
 
         <div id="mainContent">
