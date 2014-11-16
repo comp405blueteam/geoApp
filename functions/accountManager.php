@@ -3,6 +3,34 @@
 
 Class AccountManager{
 
+    public function forceLogin(){
+		$db = Db::getDbInstance();
+
+        // check if session is set
+        if(!isset($_SESSION)){
+            header("Location: ".BASE_URL."login.php");
+        }
+        // create sql to auth user
+		$sql =
+		"
+		SELECT first_name, auth_level, user_id
+		FROM user
+		WHERE user_id = '" . $_SESSION['UID'] . "'
+		AND first_name = '" . $_SESSION['NAME'] . "'
+		AND auth_level = '" . $_SESSION['AUTH_LEVEL'] . "';
+		";
+
+        // query db
+		$result=$db->getRset($sql);
+		
+		// check if invalid
+		if(empty($result)){
+            header("Location: ".BASE_URL."login.php");
+        }
+        return;
+        
+    }
+        
 	public static function getAMInstance(){
             global $accountManager;
             return $accountManager;
