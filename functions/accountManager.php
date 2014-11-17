@@ -74,8 +74,15 @@ Class AccountManager{
 		
 		// get creds from post
 		$userName = sanitize($userName);
-		$userPass = md5(sanitize($userPass));
-		
+		if(preg_match('/^[a-f0-9]{32}$/', $_POST['passwordInput'])){
+			$userPass = sanitize($userPass);
+            		//echo "It matched MD5 : " . $userPass;
+        	}else{
+			//echo "It didn't match. It was " . $userPas . " and it should be ";
+			$userPass = md5(sanitize($userPass));
+            		// echo " " . $userPass;
+			//$userPass = md5($userPass);
+		}
 		// get number for id
 		$uid = preg_replace('/\D/', '', $userName);
 		

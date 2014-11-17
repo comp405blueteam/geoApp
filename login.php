@@ -24,7 +24,17 @@ $accountManager->login($_POST['usernameInput'],$_POST['passwordInput']);
             window.open('mailto:comp405blueteam@gmail.com');
     }
 </script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+        function hashPass(){
+            var pass = document.getElementById("passwordInput").value;
+            document.getElementById("passwordInput").value = CryptoJS.MD5(pass.toString()).toString();
+        }
+</script>
 
+<noscript>
+Please Turn On Javascript!
+</noscript>
 <?php closeHeader($title); ?> 
 
     
@@ -33,7 +43,7 @@ $accountManager->login($_POST['usernameInput'],$_POST['passwordInput']);
     	   <div id="contentLogin">
     		  Username: <input name="usernameInput" id="usernameInput" /><br/><br/>
     		  Password: <input name="passwordInput" id="passwordInput" type=password /><br/><br/><br/>
-    		  <button name="loginButton" id="loginButton" type="submit">Login</button><br/><br/>
+    		  <button name="loginButton" id="loginButton" type="submit" onclick="hashPass();">Login</button><br/><br/>
     		  <button name="forgotPass" id="forgotPass">Forgot Password</button><br/><br/>
     		  <button name="requestAccountButton" id="requestAccountButton" onclick="request();">Request Account</button><br/>
     	   </div>
