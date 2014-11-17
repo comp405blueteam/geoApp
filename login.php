@@ -8,7 +8,8 @@
     // if this is a post try to login
     if(isset($_POST['usernameInput'])){
             if(isset($_POST["passwordInput"])){
-                    $accountManager->login();
+                    
+$accountManager->login($_POST['usernameInput'],$_POST['passwordInput']);
             }
     }
 

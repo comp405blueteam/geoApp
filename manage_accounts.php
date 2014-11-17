@@ -10,7 +10,8 @@
 	if($_POST){
 		if(isset($_POST['userNameInput'])){
 			if(isset($_POST['emailInput'])){
-				$accountManager->createUser();
+				
+$accountManager->createUser($_POST['userNameInput'],$_POST['emailInput']);
 			}
 		}
 	}

@@ -66,15 +66,15 @@ Class AccountManager{
 		echo "  Login info is: " . $user->lastName . $user->accountId . "  " . $user->password;
 	}
 
-	public function login(){
+	public function login($userName, $userPass){
 	 	
 		$db = Db::getDbInstance();
 		
 		//Login Function
 		
 		// get creds from post
-		$userName = sanitize($_POST['usernameInput']);
-		$userPass = md5(sanitize($_POST['passwordInput']));
+		$userName = sanitize($userName);
+		$userPass = md5(sanitize($userPass));
 		
 		// get number for id
 		$uid = preg_replace('/\D/', '', $userName);
@@ -146,9 +146,9 @@ Class AccountManager{
 		";
 	}
     
-	public function createUser(){
+	public function createUser($userName, $userEmail){
 		// create user function		
-		$user = new user($_POST['userNameInput'], $_POST['emailInput']);
+		$user = new user($userName, $userEmail);
 		//echo "User Atribs: " . $user->accountId . $user->email . $user->lastName . $user->firstName . $user->password;
 		
 		// add a new user to db
