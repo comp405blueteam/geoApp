@@ -2,34 +2,61 @@
 
 class Analysis{
     
-	public function analyze(){
-		//analyze Function
-		echo "analyze Called";
-	}
-    
-	public function saveAnalysis(){
-		//saveAnalysis Function
-		echo "saveAnalysis Called";
-	}
-    
-	public function userAnalyses(){
-		//userAnalyses function
-		echo "userAnalyses Called";
-	}
+	//Query to list elements in dropdown
+	public function listChemicals($chemicals) {
+        foreach ($chemicals as $row) {
+            foreach ($row as $chemical) {
+                echo '<option value="' . $chemical . '">' . $chemical . '</option>';
+            }
+        }
+    }
 
-	public function exportAnalysis(){
-		//exportAnalysisfunction
-		echo "exportAnalysis called";
-	}
-
-	public function searchAnalyses(){
-		//searchAnalyses function
-		echo "searchAnalyses called";
-	}
-
-	public function getAnalysis(){
-		//getAnalysis function
-		echo "getAnalysis called";
+	//Query to list objects in dropdown
+    public function listObjects($objects) {
+        foreach ($objects as $row) {
+            foreach ($row as $object) {
+                echo '<option value="' . $object . '">' . $object . '</option>';
+            }
+        }
+    }
+	
+	// Query for initial page setup
+	public function initialContent(){
+	$db = Db::getDbInstance();
+	
+		$sql =
+		"
+		SELECT contaminant.danger_level, object.object_name, chemical.chemical_name
+		FROM contaminant
+		JOIN object USING(object_id)
+		JOIN chemical USING(chemical_id)
+		";
+		
+		$results = $db->getRset($sql);		
+		
+		echo "<table width='100%'>";
+		
+		echo "<tr>";
+			
+		echo "<th align='left'>"."<p>Item Type</p>"."</th>";
+		echo "<th align='left'>"."<p>Element</p>"."</th>";
+		echo "<th align='left'>"."<p>Contaminant Level</p>"."</th>";
+			
+		echo "</tr>";
+		
+		for($i = 0;$i < count($results);$i++){
+			
+			echo "<tr>";
+			
+			echo "<td>".$results[$i]['object_name']."</td>";
+			echo "<td>".$results[$i]['chemical_name']."</td>";
+			echo "<td>".$results[$i]['danger_level']."</td>";
+			
+			echo "</tr>";
+		
+		}
+		
+		echo "</table>";
 	}
 
 }

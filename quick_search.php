@@ -8,6 +8,7 @@
     
     $chemicals = array();
     $objects = array();
+	$analysis = new Analysis();
 
     $sql =
     "
@@ -74,68 +75,7 @@
 		
 		exit();
 	}
-?>
-
-<?php
-
-    function listChemicals($chemicals) {
-        foreach($chemicals as $row) {
-	    foreach($row as $chemical) {
-		echo '<option value="' . $chemical . '">' . $chemical . '</option>';
-	    }
-        }
-    }
-
-    function listObjects($objects) {
-        foreach($objects as $row) {
-	    foreach($row as $object) {
-		echo '<option value="' . $object . '">' . $object . '</option>';
-	    }
-        }
-    }
-
-?>
-
-<?php
-	
-	function initialContent(){
-	$db = Db::getDbInstance();
-	
-		$sql =
-		"
-		SELECT contaminant.danger_level, object.object_name, chemical.chemical_name
-		FROM contaminant
-		JOIN object USING(object_id)
-		JOIN chemical USING(chemical_id)
-		";
-		
-		$results = $db->getRset($sql);		
-		
-		echo "<table width='100%'>";
-		
-		echo "<tr>";
-			
-		echo "<th align='left'>"."<p>Item Type</p>"."</th>";
-		echo "<th align='left'>"."<p>Element</p>"."</th>";
-		echo "<th align='left'>"."<p>Contaminant Level</p>"."</th>";
-			
-		echo "</tr>";
-		
-		for($i = 0;$i < count($results);$i++){
-			
-			echo "<tr>";
-			
-			echo "<td>".$results[$i]['object_name']."</td>";
-			echo "<td>".$results[$i]['chemical_name']."</td>";
-			echo "<td>".$results[$i]['danger_level']."</td>";
-			
-			echo "</tr>";
-		
-		}
-		
-		echo "</table>";
-	}
-        
+   
         $title = "Quick Search";
         openHeader($title);
 ?>
@@ -176,18 +116,18 @@ $.ajax({
     			 Element:<br/>
     			 <select name="elementSelect" id="elementSelect" onChange="searchChange()">
     				 <option value="">All</option>
-                     <?php listChemicals($chemicals); ?>
+                     <?php $analysis->listChemicals($chemicals); ?>
     			 </select><br/><br/>
     			 Item type:<br/>
     			 <select name="objectSelect" id="objectSelect" onChange="searchChange()">
     				 <option value="">All</option>
-                     <?php listObjects($objects); ?>
+                     <?php $analysis->listObjects($objects); ?>
     			 </select><br/>
     		  </div>
     	   </div>
     	   <div id="contentRightWindow">
     		  <div id="contentRightWindowContents">
-    			 <div name="resultsTextarea" id="resultsTextarea" style="resize:none; overflow:auto; overflow-x:hidden; width:100%; height:99%;";><?php initialContent(); ?></div>
+    			 <div name="resultsTextarea" id="resultsTextarea" style="resize:none; overflow:auto; overflow-x:hidden; width:100%; height:99%;";><?php $analysis->initialContent(); ?></div>
     		  </div>
     	   </div>
         </form>
