@@ -221,7 +221,7 @@
     height:15%;
 }
 
-#userTable tr:not(:first-child):hover{
+#selectTable tr:not(:first-child):hover{
     background-color: #FF8080;
     cursor: pointer; 
     cursor: hand;

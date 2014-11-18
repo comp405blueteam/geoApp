@@ -557,9 +557,9 @@
         
 
 
-        <div id="reportsLogsContent">
+        <div id="mainContent">
 
-            <div id="reportsLogsContentResults">
+            <div id="mainContentResults">
                 <?php listContaminants(); ?>
             </div>
             <div id="reportsLogsButtons"><button type="button" onclick="editChem();">Edit Elements</button><button type="button" onclick="editObj();">Edit Objects</button></div>

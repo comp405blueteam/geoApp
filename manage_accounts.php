@@ -11,7 +11,7 @@
 		if(isset($_POST['userNameInput'])){
 			if(isset($_POST['emailInput'])){
 				
-$accountManager->createUser($_POST['userNameInput'],$_POST['emailInput']);
+                        $accountManager->createUser($_POST['userNameInput'],$_POST['emailInput']);
 			}
 		}
 	}
@@ -191,7 +191,7 @@ $accountManager->createUser($_POST['userNameInput'],$_POST['emailInput']);
                 echo '<div>';
                     echo '<form>';
                     echo '<input id="duid" type="hidden" value="'.$user['user_id'].'"/>';
-                    echo '<table>';
+                    echo '<table id="selectTable">';
                         echo '<tr><td>First Name:</td><td> <input name="firstNameInput" id="firstNameInput" value="'.$user['first_name'].'"/></td></tr>';
                         echo '<tr><td>Last Name:</td><td> <input name="lastNameInput" id="lastNameInput" value="'.$user['last_name'].'"/></td></tr>';
                         echo '<tr><td>Email:</td><td> <input name="emailInput" id="emailInput" value="'.$user['email'].'"/></td></tr>';
@@ -242,20 +242,7 @@ $accountManager->createUser($_POST['userNameInput'],$_POST['emailInput']);
                 <?php displayUsers(); ?>
             </div>
         </div>
-        <form name="contentForm" id="contentForm" method="POST" action="manage_accounts.php">
-
-            <div id="contentRightWindow" style="display:none;">
-                <div id="contentRightWindowContents">
-                    IF USER DOES NOT EXIST<br/>
-                    &nbsp&nbsp<button name="createNewUserButton" id="createNewUserButton" type="submit">Create New User</button><br/><br/>
-                    IF USER DOES EXIST<br/>
-                    &nbsp&nbsp<button name="userInfoButton" id="userInfoButton">Get/Update User Info</button><br/>
-                    &nbsp&nbsp<button name="resetUserPasswordButton" id="resetUserPasswordButton">Reset User Password</button><br/>
-                    &nbsp&nbsp<button name="deleteUserButton" id="deleteUserButton">Delete User</button><br/>
-
-                </div>
-            </div>
-        </form>
+        
     </div>
 
 <?php outputFooter(); ?>
