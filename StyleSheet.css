@@ -263,6 +263,7 @@
     height:80%;
     width:96%;
     border:1px solid #000;
+    overflow-y: scroll;
 }
 
 #lowerContentButtons {
@@ -330,11 +331,10 @@ th {
 }
 
 #editDatabaseButtons{
-    position:absolute;
+    position: absolute;
     font-size: 20;
     text-align: right;
     top: 90%;
-    left:2%;
-    height:80%;
-    width:96%;
+    left: 5%;
+    height: 80%;
 }
