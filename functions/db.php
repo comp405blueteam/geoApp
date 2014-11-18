@@ -208,7 +208,7 @@ class Db {
         $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 524 . "','" . 310 . "','" . 401 . "','" . 400 . "')";  $this->insert($sql, $debug);
         
         // Bare Soil
-        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 525 . "','" . 310 . "','" . 400 . "','" . 1200 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 525 . "','" . 310 . "','" . 400 . "','" . 1200 . "')";  $this->insert($sql, $debug);  
         
         // Drinking Water
         $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 526 . "','" . 300 . "','" . 403 . "','" . 0.006 . "')";  $this->insert($sql, $debug);
@@ -238,6 +238,8 @@ class Db {
          
         // Food Item (Apple Juice)
         $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 548 . "','" . 302 . "','" . 404 . "','" . 0.01 . "')";  $this->insert($sql, $debug);
+        
+        
         
         $results = 
         array
