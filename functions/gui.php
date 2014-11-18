@@ -139,7 +139,7 @@ function displayLink($link) {
     echo $link;
 }
 
-function outputOptionsById($table, $idColum, $nameColumn){
+function outputOptionsById($table, $idColum, $nameColumn, $select = ""){
     $db = Db::getDbInstance();
     
     $sql = 
@@ -152,7 +152,11 @@ function outputOptionsById($table, $idColum, $nameColumn){
 
     echo '<option value="">Select an option...</option>';
     for($i = 0;$i<count($items);$i++){
-        echo '<option value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
+        $selected = "";
+        if($items[$i]['id'] == $select){
+            $selected = 'selected';
+        }
+        echo '<option '.$selected.'  value="'.$items[$i]['id'].'">'.$items[$i]['name'].'</option>';                    
     }
 }
 
@@ -160,7 +164,7 @@ function displayUsers($name = "", $email = ""){
     $am = AccountManager::getAmInstance();
     $users = $am->getUsers($name, $email);
     
-    echo "<table width='100%' id='userTable'>";
+    echo "<table width='100%' id='selectTable'>";
     echo "<tr>";
     echo "<th>User ID</th>";
     echo "<th>Email</th>";
@@ -207,7 +211,7 @@ function listContaminants(){
                                 
         $contams = $db->getRset($sql);
 
-        echo "<table width = '100%'>";
+        echo "<table width = '100%' id='selectTable'>";
 
         echo "<tr>";
         echo "<th>Element Name</th>";
@@ -216,13 +220,10 @@ function listContaminants(){
         echo "</tr>";
 
         for ($i = 0; $i < count($contams); $i++) {
-            echo "<tr>";
-                echo "<form method='POST' action='edit_database.php'>";
+            echo "<tr onclick='dbEdit(".$contams[$i]['contam_id'].")'>";
                 echo "<td>" . $contams[$i]['chemical_name'] . "</td>";
                 echo "<td>" . $contams[$i]['object_name'] . "</td>";
                 echo "<td>" . $contams[$i]['danger_level'] . "</td>";
-                echo "<td><input type='hidden' value='" . $contams[$i]['contam_id'] . "'/><button type='button' >Delete</button></td>";
-                echo "</form>";
             echo "</tr>";
         }
 
