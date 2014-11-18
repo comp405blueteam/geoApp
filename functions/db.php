@@ -136,7 +136,7 @@ class Db {
             $this->insert($sql, $debug);
         }
         
-        $checmicals = array("Carbon","Lead","Chromium","Tin");
+        $checmicals = array("Antimony","Antimony(Canada)","Arsenic","Arsenic(Canada)","Barium","Beryllium","Cadmium","Cadmium(Canada)","Chromium","Copper","Lead","Lead(Canada)","Mercury","Mercury(Canada)","Molybdenum","Nickel","Selenium","Thallium","Uranium","Zinc");
         
         for ($i = 0; $i < count($checmicals); $i++) {
             $sql = "
@@ -152,7 +152,7 @@ class Db {
             $this->insert($sql, $debug);
         }
         
-        $object = array("Toy","Slug","Paint","Water");
+        $object = array("Bare Soil","Bare Soil(Children's Play Area)","Cosmetics","Drinking Water","Food Item(Apple Juice)","Modeling Clay","Residential/Commercial Paint","Soil(Containing Heavy Metals)","Toys");
         
         for ($i = 0; $i < count($object); $i++) {
             $sql = "
@@ -170,24 +170,74 @@ class Db {
         
         //5,6,7,8 for each objects checmical
         //2,20
-        for($i = 0;$i<count($object);$i++){
-            for($j = 0;$j<count($checmicals);$j++){
-                $sql = 
-                "
-                INSERT INTO contaminant
-                (contam_id, chemical_id, object_id, danger_level)
-                VALUES
-                (
-                '" . (500+($i*100)+$j) . "',
-                '" . (300+$j) . "',
-                '" . (400+$i) . "',
-                '" . (1.0/rand(2,20)) . "'
-                )
-                ";
-                
-                $this->insert($sql, $debug);
-            }
-        }
+        // Manual entry of default contaminents
+        
+        // Toys
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 500 . "','" . 300 . "','" . 408 . "','" . 60 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 501 . "','" . 302 . "','" . 408 . "','" . 25 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 502 . "','" . 304 . "','" . 408 . "','" . 1000 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 503 . "','" . 306 . "','" . 408 . "','" . 75 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 504 . "','" . 308 . "','" . 408 . "','" . 60 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 505 . "','" . 310 . "','" . 408 . "','" . 90 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 506 . "','" . 312 . "','" . 408 . "','" . 60 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 507 . "','" . 316 . "','" . 408 . "','" . 500 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 508 . "','" . 313 . "','" . 408 . "','" . 10 . "')";  $this->insert($sql, $debug);
+        
+        // Modeling Clays
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 509 . "','" . 300 . "','" . 405 . "','" . 60 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 510 . "','" . 302 . "','" . 405 . "','" . 25 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 511 . "','" . 304 . "','" . 405 . "','" . 250 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 512 . "','" . 306 . "','" . 405 . "','" . 50 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 513 . "','" . 308 . "','" . 405 . "','" . 25 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 514 . "','" . 310 . "','" . 405 . "','" . 90 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 515 . "','" . 312 . "','" . 405 . "','" . 25 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 516 . "','" . 316 . "','" . 405 . "','" . 500 . "')";  $this->insert($sql, $debug);
+        
+        // Cosmetics
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 517 . "','" . 312 . "','" . 402 . "','" . 1 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 518 . "','" . 313 . "','" . 402 . "','" . 3 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 519 . "','" . 311 . "','" . 402 . "','" . 10 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 520 . "','" . 303 . "','" . 402 . "','" . 3 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 521 . "','" . 307 . "','" . 402 . "','" . 3 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 522 . "','" . 301 . "','" . 402 . "','" . 5 . "')";  $this->insert($sql, $debug);
+        
+        // Residential/Commercial Paint
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 523 . "','" . 310 . "','" . 406 . "','" . 100 . "')";  $this->insert($sql, $debug);
+        
+        // Bare Soil (Children's Play Area)
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 524 . "','" . 310 . "','" . 401 . "','" . 400 . "')";  $this->insert($sql, $debug);
+        
+        // Bare Soil
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 525 . "','" . 310 . "','" . 400 . "','" . 1200 . "')";  $this->insert($sql, $debug);
+        
+        // Drinking Water
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 526 . "','" . 300 . "','" . 403 . "','" . 0.006 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 527 . "','" . 302 . "','" . 403 . "','" . 0.01 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 528 . "','" . 304 . "','" . 403 . "','" . 2 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 529 . "','" . 305 . "','" . 403 . "','" . 0.004 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 530 . "','" . 306 . "','" . 403 . "','" . 0.005 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 531 . "','" . 308 . "','" . 403 . "','" . 0.1 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 532 . "','" . 309 . "','" . 403 . "','" . 1.3 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 533 . "','" . 310 . "','" . 403 . "','" . 0.015 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 534 . "','" . 312 . "','" . 403 . "','" . 0.002 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 535 . "','" . 316 . "','" . 403 . "','" . 0.05 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 536 . "','" . 317 . "','" . 403 . "','" . 0.002 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 537 . "','" . 318 . "','" . 403 . "','" . 0.03 . "')";  $this->insert($sql, $debug);
+        
+        // Soil (Containing Heavy Metals)
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 538 . "','" . 302 . "','" . 407 . "','" . 75 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 539 . "','" . 306 . "','" . 407 . "','" . 85 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 540 . "','" . 308 . "','" . 407 . "','" . 3000 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 541 . "','" . 309 . "','" . 407 . "','" . 4300 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 542 . "','" . 310 . "','" . 407 . "','" . 420 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 543 . "','" . 312 . "','" . 407 . "','" . 840 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 544 . "','" . 314 . "','" . 407 . "','" . 57 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 545 . "','" . 315 . "','" . 407 . "','" . 75 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 546 . "','" . 316 . "','" . 407 . "','" . 100 . "')";  $this->insert($sql, $debug);
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 547 . "','" . 319 . "','" . 407 . "','" . 7500 . "')";  $this->insert($sql, $debug);
+         
+        // Food Item (Apple Juice)
+        $sql = "INSERT INTO contaminant(contam_id, chemical_id, object_id, danger_level) VALUES('" . 548 . "','" . 302 . "','" . 404 . "','" . 0.01 . "')";  $this->insert($sql, $debug);
         
         $results = 
         array
