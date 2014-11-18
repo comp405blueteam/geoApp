@@ -328,3 +328,13 @@
 th {
     text-align: left;
 }
+
+#editDatabaseButtons{
+    position:absolute;
+    font-size: 20;
+    text-align: right;
+    top: 90%;
+    left:2%;
+    height:80%;
+    width:96%;
+}

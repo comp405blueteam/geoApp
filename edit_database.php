@@ -562,7 +562,7 @@
             <div id="mainContentResults">
                 <?php listContaminants(); ?>
             </div>
-            <div id="reportsLogsButtons"><button type="button" onclick="editChem();">Edit Elements</button><button type="button" onclick="editObj();">Edit Objects</button></div>
+            <div id="editDatabaseButtons"><button type="button" onclick="editChem();">Edit Elements</button><button type="button" onclick="editObj();">Edit Objects</button></div>
         </div>
         
     </div>
