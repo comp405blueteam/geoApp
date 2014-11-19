@@ -132,6 +132,11 @@ Class AccountManager{
     
 	public function logout(){
 		//Logout Function
+		unset($_SESSION['UID']);
+		unset($_SESSION['NAME']);
+		unset($_SESSION['AUTH_LEVEL']);
+		
+		
 		session_destroy();
 		
 		//redirect to login
