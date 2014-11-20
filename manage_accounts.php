@@ -231,7 +231,7 @@
             <input name="emailInput" id="emailInput" onchange="searchAccounts();"/>
         </div>
         <div id="createUser">
-            <button name="createNewUserButton" id="createNewUserButton" type="submit">Create User</button>
+            <input name="createNewUserButton" id="createNewUserButton" type="image" src="images/buttons/create_user_button.png" />
         </div>
     </form>
 

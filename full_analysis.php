@@ -232,10 +232,10 @@ function analyze(){
     			 </select><br/><br/>
     			 PPM:<br/>
     			 <input name="ppmInput" id="ppmInput"/><br/><br/>
-    			 <button name="addButton" type="button" onclick="add()">Add</button><br/><br/>
+    			 <input name="addButton" type="image" src="images/buttons/add_button.png" onclick="add()" /><br/><br/>
     			 <div disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:30%;">RESULTS - USERS CANNOT EDIT TEXTFIELD</div>
     			 <div id="itemContainer">
-    				    <button name="runAnalysisButton" type="button" id="runAnalysisButton" onclick="analyze()">Run Analysis</button>
+    				    <input name="runAnalysisButton" type="image" src="images/buttons/run_analysis_button.png" id="runAnalysisButton" onclick="analyze()" />
     			 </div>
     		  </div>
     	   </div>

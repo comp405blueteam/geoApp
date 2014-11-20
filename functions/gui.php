@@ -110,14 +110,13 @@ function closeHeader($title){
         <div id="header">
             <div id="headerTitle"><?php echo $title; ?></div>
             <div id="headerLogin">
-                
-                    
+                                  
                     <?php
                     
                     if(!empty($_SESSION['UID'])){
+                        
                         echo '<a href="logout.php"> Logout';
-                    }else{
-                        echo '<a href="login.php"> Login';
+                        
                     }    
                     
                     ?>

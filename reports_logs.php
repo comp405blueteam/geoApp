@@ -141,7 +141,7 @@
                 <td>".date("m/d/y g:i:s A", $date)."</td>
                 <td>".$reports[$i]['analysis_name']."</td>
                 <td>".$reports[$i]['notes']."</td>
-                <td><button type='button' onclick='openReport(".$reports[$i]['analysis_id'].");'>View Report</button></td>
+                <td><input type='image' src='images/buttons/view_button.png' onclick='openReport(".$reports[$i]['analysis_id'].");' /></td>
                 ";
                 
             echo '</tr>';
@@ -193,14 +193,15 @@
     		  Date: <input name="dateInput" id="dateInput"/>
     	   </div>
     	   <div id="searchBarSearchButton">
-               <button type="button" name="searchButton" id="searchButton" onclick="getReports();">Search</button>
+               <input type="image" src="images/buttons/search_button.png" name="searchButton" id="searchButton" onclick="getReports();" />
     	   </div>
     	   <div id="mainContent">
     		  <div id="mainContentResults">
     			 <div id="resultsTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:99%;";><?php getReports(); ?></div>
     		  </div>
     		  <div id="lowerContentButtons">
-    			 <button name="myReportsButton" id="myReportsButton">My Reports</button>&nbsp&nbsp<button>Clear Results</button>
+    			 <input name="myReportsButton" id="myReportsButton" type="image" src="images/buttons/my_reports_button.png" />&nbsp&nbsp
+                         <input name="clearReportsButton" id="clearReportsButton" type="image" src="images/buttons/clear_button.png" />
     		  </div>
     	   </div>
         </form>

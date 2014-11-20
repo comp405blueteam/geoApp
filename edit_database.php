@@ -552,7 +552,7 @@
     <div id="content">
         
         <div id="createUser">
-            <button name="addContamButton" id="addContamButton" type="button" onclick="dbAdd();">Add Contaminant</button>
+            <input name="addContamButton" id="addContamButton" type="image" src="images/buttons/add_cont_button.png" onclick="dbAdd();" />
         </div>
         
 
@@ -562,7 +562,9 @@
             <div id="mainContentResults">
                 <?php listContaminants(); ?>
             </div>
-            <div id="editDatabaseButtons"><button type="button" onclick="editChem();">Edit Elements</button><button type="button" onclick="editObj();">Edit Objects</button></div>
+            <div id="editDatabaseButtons">
+                <input name="editElemButton" id="editElemButton" type="image" src="images/buttons/edit_elem_button.png" onclick="editChem();" /> &nbsp&nbsp
+                <input name="editObjButton" id="editObjButton" type="image" src="images/buttons/edit_obj_button.png" onclick="editObj();" /></div>
         </div>
         
     </div>
