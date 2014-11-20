@@ -86,7 +86,7 @@
     position:absolute;
     background-image: url("images/eagle.png");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
     left:0;
     top:0;
     border:1px solid #000;
