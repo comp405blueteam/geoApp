@@ -40,9 +40,9 @@ Please Turn On Javascript!
     	   <div id="contentLogin">
     		  Username: <input name="usernameInput" id="usernameInput" /><br/><br/>
     		  Password: <input name="passwordInput" id="passwordInput" type=password /><br/><br/><br/>
-    		  <button name="loginButton" id="loginButton" type="submit" onclick="hashPass();">Login</button><br/><br/>
-    		  <button name="forgotPass" id="forgotPass">Forgot Password</button><br/><br/>
-    		  <button name="requestAccountButton" id="requestAccountButton" onclick="request();">Request Account</button><br/>
+    		  <input name="loginButton" id="loginButton" type="image" src="images/buttons/login_button.png" onclick="hashPass();" /><br/><br/>
+    		  <input name="forgotPass" id="forgotPass" type="image" src="images/buttons/forgot_button.png" /><br/><br/>
+    		  <input name="requestAccountButton" id="requestAccountButton" type="image" src="images/buttons/request_button.png" onclick="request();" /><br/>
     	   </div>
         </form>
     </div>
