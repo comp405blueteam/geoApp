@@ -12,11 +12,12 @@ Class AccountManager{
         // create sql to auth user
 		$sql =
 		"
-		SELECT first_name, auth_level, user_id
+		SELECT first_name, auth_level, user_id, active
 		FROM user
 		WHERE user_id = '" . $_SESSION['UID'] . "'
 		AND first_name = '" . $_SESSION['NAME'] . "'
-		AND auth_level = '" . $_SESSION['AUTH_LEVEL'] . "';
+		AND auth_level = '" . $_SESSION['AUTH_LEVEL'] . "'
+		AND active = '1';
 		";
 
         // query db
@@ -91,11 +92,12 @@ Class AccountManager{
 		// create sql to auth user
 		$sql =
 		"
-		SELECT first_name, auth_level, user_id
+		SELECT first_name, auth_level, user_id, active
 		FROM user
 		WHERE user_id = '" . $uid . "'
 		AND last_name = '" . $lname . "'
-		AND password = '" . $userPass . "';
+		AND password = '" . $userPass . "'
+		AND active = '1';
 		";
 
 		// get result
