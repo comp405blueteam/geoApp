@@ -114,9 +114,7 @@ function closeHeader($title){
                     <?php
                     
                     if(!empty($_SESSION['UID'])){
-                        
-                        echo '<a href="logout.php"> Logout';
-                        
+                        displayLink('<a href="logout.php"> <img src="images/buttons/logout_button.png" /></a>');  
                     }    
                     
                     ?>
