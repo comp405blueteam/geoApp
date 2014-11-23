@@ -1,11 +1,12 @@
 <?php
-
+    //start session, include functions
     session_start();
 
     require_once("inc_functions.php");
    
     $db = Db::getDbInstance();
     
+    //gets reports based on current cruteria, calls PHP function
     if(isset($_POST['element']) && isset($_POST['reportid']) && isset($_POST['date'])){
         $element = trim(sanitize($_POST['element']));
         $reportid = trim(sanitize($_POST['reportid']));
@@ -15,7 +16,7 @@
         exit;
     }
     
-    
+    //displays a single report
     if(isset($_GET['singleReportId'])){
         $title = 'Report Log';
         openHeader($title);
@@ -52,8 +53,8 @@
 
                     echo '<th>Element Name</th>';
                     echo '<th>Observed Level</th>';
-                    echo '<th>Danger Level</th>';
-                    echo '<th>Is Dangerous</th>';
+                    echo '<th>Max Level PPM</th>';
+                    echo '<th>Exceeds Max</th>';
                     
                     for($i = 0;$i<count($results);$i++){
                        $danger_row = "";
@@ -93,6 +94,7 @@
     $title = 'Report Logs';
     openHeader($title);    
     
+    //gets reports based on criteria
     function getReports($reportId = "", $element = "", $date = ""){
         $db = Db::getDbInstance();
         
@@ -153,10 +155,12 @@
 ?>
 
 <script>
+    //opens a new dialog and displays the given report
     function openReport(reportId){
         window.open('reports_logs.php?singleReportId='+reportId, null, 'height=700,width=600');
     }
     
+    //gets the reports and sets HTML to result, calls ajax
     function getReports(){
         var element = document.getElementById('elementInput').value;
         var reportid = document.getElementById('reportIdInput').value;

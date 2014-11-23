@@ -5,6 +5,7 @@ class Db {
     protected static $conn;
     protected static $db;
     
+    //gets a DB instance for use in other functions
     public static function getDbInstance(){
         if(!isset(self::$db)){
             self::$db = new Db();
@@ -14,6 +15,7 @@ class Db {
         }
     }
     
+    //opens a connection to the DB, accepts other db, and debugging
     function openDB($db = MYSQL_DATABASE, $debug = false) {
         if (!isset(self::$conn)) {
             self::$conn = new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, $db, MYSQL_PORT);
@@ -32,6 +34,7 @@ class Db {
         }
     }
     
+    //creates a db with given name
     function createDB($db = MYSQL_DATABASE, $debug = true) {
         $conn = $this->openDB();
 
@@ -44,6 +47,7 @@ class Db {
         }
     }
     
+    //drops db of given name
     function dropDB($db = MYSQL_DATABASE, $debug = true) {
         $conn = $this->openDB();
 
@@ -56,11 +60,13 @@ class Db {
         }
     }
     
+    //runs a sql query
     function sqlQuery($sql) {
         $conn = $this->openDB();
         return $conn->query($sql);
     }
 
+    //selects a db
     function selectDb($db) {
         $conn = $this->openDB();
         if ($this->isConnected()) {
@@ -68,6 +74,7 @@ class Db {
         }
     }
 
+    //closes db connection
     function closeDb() {
         $conn = $this->openDB();
         if ($this->isConnected()) {
@@ -76,6 +83,7 @@ class Db {
         }
     }
     
+    //inserts test data after db is created
     function insertTestData($debug = true) {
         $users = array
                     (
@@ -282,6 +290,7 @@ class Db {
                 
     }
     
+    //wipes the db and recreates structure
     function wipeDB($db, $debug = true) {
         $this->openDB("", $debug);
         //$this->dropDB(MYSQL_DATABASE, $debug);
@@ -399,7 +408,7 @@ class Db {
             contam_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
             chemical_id INT(10) UNSIGNED NOT NULL,
             object_id INT(10) UNSIGNED NOT NULL,
-            danger_level decimal(10,8) NOT NULL,
+            danger_level decimal(10,4) NOT NULL,
             PRIMARY KEY (contam_id)
             ) 
             ENGINE=InnoDB DEFAULT CHARSET=utf8
@@ -518,6 +527,7 @@ class Db {
         return $results;
     }
 
+    //gets a single row
     public function getRow($sql) {
         //gets a single row result set
         $conn = $this->openDB();
@@ -537,6 +547,7 @@ class Db {
         
     }
 
+    //gets the value of a row/column
     public function getVal($sql) {
         //return single value from query
         $conn = $this->openDB();
@@ -556,20 +567,27 @@ class Db {
         return $value;
     }
 
+    //update and insert functions, return values for tests
     public function update($sql, $debug = false) {
         // updates based on sql statement
         if ($this->isConnected()) {
-            $this->runSQL($sql, $debug);
+            return $this->runSQL($sql, $debug);
         }
     }
 
     public function insert($sql, $debug = false) {
+        $conn = $this->openDB();
         //insert based on sql statement
         if ($this->isConnected()) {
-            $this->runSQL($sql, $debug);
+            if($this->runSQL($sql, $debug)){
+                return $conn->insert_id;
+            }
         }
+        
+        return false;
     }
 
+    //logs errors
     function error($mesg, $tag = '') {
         //figure out more extensive error handling later
         $sql = 
@@ -588,6 +606,7 @@ class Db {
         }
     }
 
+    //log debug messages
     function debug($mesg, $tag = '') {
         $sql = 
         "
@@ -605,6 +624,7 @@ class Db {
         }
     }
     
+    //tests if connected to db
     function isConnected(){
         $conn = $this->openDB();
         if ($conn->connect_errno) {
@@ -615,6 +635,7 @@ class Db {
         }
     }
     
+    //runs a sql query
     function runSQL($sql, $debug = false){
         if ($this->sqlQuery($sql) === true) {
             if($debug){
@@ -625,6 +646,7 @@ class Db {
         }
     }
     
+    //escapes strings
     function realEscapeString($string){
         if($this->isConnected()){
             $conn = $this->openDB();

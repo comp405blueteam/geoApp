@@ -1,5 +1,6 @@
 <?php
 
+//old header
 function header_out($title = "PHP Test"){
     echo "<html>";
 
@@ -12,6 +13,8 @@ function header_out($title = "PHP Test"){
     echo "<body bgcolor = 'gray'>";
 }
 
+
+//starts header, sets title in meta info
 function openHeader($title){
     ?>
         <html>
@@ -44,6 +47,7 @@ function openHeader($title){
     <?php
 }
 
+//ends header, displays title in content of page
 function closeHeader($title){
     ?>
         </head>
@@ -125,6 +129,7 @@ function closeHeader($title){
     <?php
 }
 
+//outputs footer
 function outputFooter(){
     echo "</div>";
     
@@ -136,6 +141,7 @@ function displayLink($link) {
     echo $link;
 }
 
+//outputs select options by name and id using the given columns
 function outputOptionsById($table, $idColum, $nameColumn, $select = ""){
     $db = Db::getDbInstance();
     
@@ -157,6 +163,7 @@ function outputOptionsById($table, $idColum, $nameColumn, $select = ""){
     }
 }
 
+//displays users using criteria
 function displayUsers($name = "", $email = ""){
     $am = AccountManager::getAmInstance();
     $users = $am->getUsers($name, $email);
@@ -196,6 +203,7 @@ function displayUsers($name = "", $email = ""){
     echo "</table>";
 }
 
+//lists contams
 function listContaminants(){
         $db = Db::getDbInstance();
         $sql = 
@@ -213,7 +221,7 @@ function listContaminants(){
         echo "<tr>";
         echo "<th>Element Name</th>";
         echo "<th>Object Name</th>";
-        echo "<th>Danger Level</th>";
+        echo "<th>Max Level PPM</th>";
         echo "</tr>";
 
         for ($i = 0; $i < count($contams); $i++) {
@@ -227,6 +235,7 @@ function listContaminants(){
     echo "</table>";
     }
     
+    //outputs a yes no select given the column
     function getYesNoSelect($field, $name){
         $select = "";
         $select .= '<select id="'.$name.'">';
