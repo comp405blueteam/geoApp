@@ -79,10 +79,10 @@ class Db {
     function insertTestData($debug = true) {
         $users = array
                     (
-                    array('gmcdaid@lhup.edu', 'George', 'McDaid', md5('MickeyMinniePlutoHueyLouieDeweyDonaldGoofy'), 1, 1),
-                    array('jmartin@lhup.edu', 'Justin', 'Martin', md5('rcr130td1'), 1, 1),
-                    array('acohen@lhup.edu', 'Alex', 'Cohen', md5('passwd'), 1, 1),
-                    array('jmarkley@lhup.edu', 'Jeff', 'Markley', md5('pass2'), 1, 1),
+                    array('gmcdaid@lhup.edu', 'George', 'McDaid', md5('password'), 1, 1),
+                    array('jmartin@lhup.edu', 'Justin', 'Martin', md5('password'), 1, 1),
+                    array('acohen@lhup.edu', 'Alex', 'Cohen', md5('password'), 1, 1),
+                    array('jmarkley@lhup.edu', 'Jeff', 'Markley', md5('password'), 1, 1),
                     array('zheins@lhup.edu', 'Zach', 'Heins', md5('password'), 1, 0)
         );
 
