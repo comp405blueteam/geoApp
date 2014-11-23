@@ -355,15 +355,15 @@ closeHeader($title);
                 <textarea name="analysisNotes" id="analysisNotes" rows="2" placeholder="Enter analysis notes here..." style="resize:none; overflow-y:auto; overflow-x:auto; width:100%;"></textarea><br/><br/>
                 <table><tr>
                         <td>
-                           <button name="addButton" type="button" onclick="add()">Add</button><br/><br/>
+                           <input name="addButton" type="image" src="images/buttons/add_button.png" onclick="add()" /><br/><br/>
                         </td>
                         <td>
-                           <button name="clearButton" type="button" onclick="clearList()">Clear List</button><br/><br/>
+                           <input name="clearButton" type="image" src="images/buttons/clear_button.png" onclick="clearList()" /><br/><br/>
                         </td>
                     </tr></table>
                 <div disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:20%;">RESULTS - USERS CANNOT EDIT TEXTFIELD</div>
                 <div id="itemContainer">
-                    <button name="runAnalysisButton" type="button" id="runAnalysisButton" onclick="analyze()">Run Analysis</button>
+                    <input name="runAnalysisButton" type="image" id="runAnalysisButton" src="images/buttons/run_analysis_button.png" onclick="analyze()" />
                 </div>
             </div>
         </div>
