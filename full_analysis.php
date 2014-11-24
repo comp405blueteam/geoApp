@@ -1,4 +1,9 @@
 <?php
+/**
+ * This does the full analysis for many contaminants. It also houses all page specific functions. 
+ * @author  Jeff and Zack
+ * @author  GUI: Paul and Tom
+ */
 require_once("inc_functions.php");
 
 session_start();

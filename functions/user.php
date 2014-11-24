@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * User object for passing and getting info
+ * @author  Justin and Alex
+ */
 class User{
 
 	public $userName;

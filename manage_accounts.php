@@ -1,4 +1,10 @@
 <?php
+/**
+ * Displays the manage accounts page, and handles operations that are page specific
+ * @author  George
+ * @author  GUI: Paul and Tom
+ */
+
 //start session, include functions
 require_once("inc_functions.php");
 

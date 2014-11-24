@@ -1,4 +1,10 @@
 <?php
+/**
+ * Displays all reports and handles display of single reports
+ * @author  George
+ * @author  GUI: Paul and Tom
+ */
+
     //start session, include functions
     session_start();
 

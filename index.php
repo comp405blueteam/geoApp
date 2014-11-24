@@ -1,4 +1,9 @@
 <?php
+/**
+ * Index page, same as login.php
+ * @author  Justin
+ * @author  GUI: Paul and Tom
+ */
     session_start();
     
     require_once("inc_functions.php");

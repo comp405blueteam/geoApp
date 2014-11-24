@@ -1,4 +1,11 @@
 <?php
+/**
+ * This houses also the display code to edit the database. It also houses all page specific functions. 
+ * @author  George
+ * @author  GUI: Paul and Tom
+ */
+
+//start session and include functions
 session_start();
 
 require_once("inc_functions.php");

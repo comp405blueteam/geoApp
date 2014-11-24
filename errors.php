@@ -1,4 +1,8 @@
 <?php
+/**
+ * Displays all errors logged in the DB.
+ * @author  George
+ */
 
     session_start();
 

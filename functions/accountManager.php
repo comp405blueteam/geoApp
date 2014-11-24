@@ -1,4 +1,9 @@
 <?php
+/**
+ * Handles all account management operations
+ * @author  Justin and Alex
+ * @author  George
+ */
 
 Class AccountManager{
 

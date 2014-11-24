@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Handles all element, object, contaminant operations (CRUD)
+ * @author  George
+ */
 Class ContaminantManager{
     protected static $cm;
     

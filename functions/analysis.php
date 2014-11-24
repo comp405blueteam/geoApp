@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Handles all analysis functions
+ * @author  Jeff and Zack
+ */
 class Analysis{
     
 	//Query to list elements in dropdown

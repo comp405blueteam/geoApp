@@ -1,4 +1,8 @@
 <?php
+/**
+ * Demo, verify mysql functioning, also can reset/wipe data
+ * @author  George
+ */
     session_start();
     
     require_once("inc_functions.php");

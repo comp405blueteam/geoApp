@@ -1,4 +1,9 @@
 <?php
+/**
+ * Common utilites for all files
+ * @author  Justin
+ */
+
     // Function for stripping out malicious bits
     function cleanInput($input) {
         $search = array(

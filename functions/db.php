@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Handles DB operations. Connect, CRUD, Disconnect, errors/debug logging
+ * @author  George
+ */
 class Db {
 
     protected static $conn;

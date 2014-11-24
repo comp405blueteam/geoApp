@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Quick search page for searching for one specific element's max level
+ * @author  Jeff and Zack
+ * @author  GUI: Paul and Tom
+ */
     session_start();
 
     require_once("inc_functions.php");

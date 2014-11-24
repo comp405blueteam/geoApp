@@ -1,4 +1,8 @@
 <?php
+/**
+ * Includes all functions needed often by pages 
+ * @author  George
+ */
 require_once("../constants.php");
 require_once("functions/db.php");
 require_once("functions/utils.php");

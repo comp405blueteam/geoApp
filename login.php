@@ -1,5 +1,9 @@
 <?php
-	
+/**
+ * Login page, same as index.php
+ * @author  George
+ * @author  GUI: Paul and Tom
+ */
     
     session_start();
     

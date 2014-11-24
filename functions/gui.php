@@ -1,4 +1,8 @@
 <?php
+/**
+ * Displays common header/footer eleemnts for pages
+ * @author  George
+ */
 
 //old header
 function header_out($title = "PHP Test"){
