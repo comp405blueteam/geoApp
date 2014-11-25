@@ -640,13 +640,16 @@ class Db {
     
     //runs a sql query
     function runSQL($sql, $debug = false){
-        if ($this->sqlQuery($sql) === true) {
+        $result = $this->sqlQuery($sql);
+        if ( $result === true) {
             if($debug){
                 $this->debug("SUCCESS: " . $sql, "SQL");
             }
         } else {
             $this->error("FAILURE: " . $sql, "SQL");
         }
+        
+        return $result;
     }
     
     //escapes strings
