@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Handles all analysis functions
  * @author  Jeff and Zack
  */
+
 class Analysis{
     
 	//Query to list elements in dropdown
@@ -109,87 +111,5 @@ class Analysis{
 		echo "</table>";
 	}
 	
-	// function echoed to ajax query for full analysis to return results
-	public function fullAnalysis($element, $object, $ppm, $analysisID, $exceedsLimit, $maxPPM){
-		$sql = "
-            SELECT contaminant.danger_level
-            FROM contaminant
-            JOIN object
-            USING ( object_id ) 
-            JOIN chemical
-            USING ( chemical_id ) 
-            WHERE chemical.chemical_name = chemical.chemical_name
-            AND chemical.chemical_name =  '$element'
-            AND object.object_name =  '$object'
-            ";
-
-		$maxPPM = $db->getVal($sql);
-
-		//Sample exceeds limit
-		if ($ppm > $maxPPM) {
-			$exceedsLimit = 1;
-			$danger_row = "id='dangerous'";
-			$danger_image = "<img src='images/danger.png'>";
-			echo "<tr " . $danger_row . ">";
-		}
-
-		//Sample within limit
-		if ($ppm <= $maxPPM) {
-			$exceedsLimit = 0;
-			echo "<tr>";
-		}
-	
-		echo "<td align='left'>" . $object . "</td>";
-		echo "<td align='left'>" . $element . "</td>";
-		echo "<td align='left'>" . $ppm . " PPM" . "</td>";
-		echo "<td align='left'>" . $maxPPM . " PPM" . "</td>";
-	
-		//Sample exceeds limit
-		if ($ppm > $maxPPM) {
-			echo '<td>' . $danger_image . '</td>';
-		} else
-			echo "<td></td>";
-		echo "</tr>";
-    
-		//Get chemical id
-		$sql = "
-            SELECT chemical_id
-            FROM chemical
-            WHERE chemical.chemical_name = '$element'
-            ";
-
-		$chem_id = $db->getVal($sql);
-    
-		//Get object id
-		$sql = "
-            SELECT object_id
-            FROM object
-            WHERE object.object_name = '$object'
-            ";
-    
-		$object_id = $db->getVal($sql);
-    
-		//Get contaminant id
-		$sql = 
-            "
-            SELECT contam_id
-            FROM contaminant
-            WHERE chemical_id = '$chem_id'
-            AND object_id = '$object_id'
-            ";
-      
-		$contam_id = $db->getVal($sql);
-    
-		//Insert result
-		$sql = 
-			"
-			INSERT INTO result
-			(analysis_id, contam_id, observed_level, is_dangerous)
-			VALUES
-			('$analysisID', '$contam_id', '$ppm', '$exceedsLimit')
-			";
-    
-		$db->insert($sql);
-	}
 }
 ?>

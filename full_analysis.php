@@ -1,9 +1,11 @@
 <?php
+
 /**
  * This does the full analysis for many contaminants. It also houses all page specific functions. 
  * @author  Jeff and Zack
  * @author  GUI: Paul and Tom
  */
+
 require_once("inc_functions.php");
 
 session_start();
@@ -50,26 +52,26 @@ if (isset($_POST['notes']) & isset($_POST['analysisName'])){
     $user = $_SESSION['UID'];
     
     $sql = 
-    "
-    INSERT INTO analysis
-    (analysis_name, notes, user_id)
-    VALUES
-    ('$name', '$notes', '$user')
-    ";
+			"
+			INSERT INTO analysis
+			(analysis_name, notes, user_id)
+			VALUES
+			('$name', '$notes', '$user')
+			";
     
-    $db->insert($sql);
+		$db->insert($sql);
     
-    // Return analysis ID
-    $sql = 
-    "
-    Select analysis_id
-    FROM analysis
-    WHERE analysis_name = '$name';
-    ";
+		// Return analysis ID
+		$sql = 
+			"
+			Select analysis_id
+			FROM analysis
+			WHERE analysis_name = '$name';
+			";
     
-    $analysisID = $db->getVal($sql);
-    
-    echo json_encode($analysisID);
+		$analysisID = $db->getVal($sql);
+	
+	echo json_encode($analysisID);
     
     exit();
 }
@@ -83,8 +85,86 @@ if (isset($_POST['element']) & isset($_POST['object']) & isset($_POST['ppm']) & 
     $analysisID = $_POST['analysisID'];
     $exceedsLimit;
     $maxPPM;
-	
-	$analysis->fullAnalysis($element, $object, $ppm, $analysisID, $exceedsLimit, $maxPPM);
+
+    $sql = "
+            SELECT contaminant.danger_level
+            FROM contaminant
+            JOIN object
+            USING ( object_id ) 
+            JOIN chemical
+            USING ( chemical_id ) 
+            WHERE chemical.chemical_name = chemical.chemical_name
+            AND chemical.chemical_name =  '$element'
+            AND object.object_name =  '$object'
+            ";
+
+    $maxPPM = $db->getVal($sql);
+
+    //Sample exceeds limit
+    if ($ppm > $maxPPM) {
+        $exceedsLimit = 1;
+        $danger_row = "id='dangerous'";
+        $danger_image = "<img src='images/danger.png'>";
+        echo "<tr " . $danger_row . ">";
+    }
+
+    //Sample within limit
+    if ($ppm <= $maxPPM) {
+        $exceedsLimit = 0;
+        echo "<tr>";
+    }
+
+    echo "<td align='left'>" . $object . "</td>";
+    echo "<td align='left'>" . $element . "</td>";
+    echo "<td align='left'>" . $ppm . " PPM" . "</td>";
+    echo "<td align='left'>" . $maxPPM . " PPM" . "</td>";
+
+    //Sample exceeds limit
+    if ($ppm > $maxPPM) {
+        echo '<td>' . $danger_image . '</td>';
+    } else
+        echo "<td></td>";
+    echo "</tr>";
+    
+    //Get chemical id
+    $sql = "
+            SELECT chemical_id
+            FROM chemical
+            WHERE chemical.chemical_name = '$element'
+            ";
+
+    $chem_id = $db->getVal($sql);
+    
+    //Get object id
+    $sql = "
+            SELECT object_id
+            FROM object
+            WHERE object.object_name = '$object'
+            ";
+    
+    $object_id = $db->getVal($sql);
+    
+    //Get contaminant id
+    $sql = 
+            "
+            SELECT contam_id
+            FROM contaminant
+            WHERE chemical_id = '$chem_id'
+            AND object_id = '$object_id'
+            ";
+      
+    $contam_id = $db->getVal($sql);
+    
+    //Insert result
+    $sql = 
+    "
+    INSERT INTO result
+    (analysis_id, contam_id, observed_level, is_dangerous)
+    VALUES
+    ('$analysisID', '$contam_id', '$ppm', '$exceedsLimit')
+    ";
+    
+    $db->insert($sql);
     
     exit();
 }
@@ -360,15 +440,15 @@ closeHeader($title);
                 <textarea name="analysisNotes" id="analysisNotes" rows="2" placeholder="Enter analysis notes here..." style="resize:none; overflow-y:auto; overflow-x:auto; width:100%;"></textarea><br/><br/>
                 <table><tr>
                         <td>
-                           <input name="addButton" type="image" src="images/buttons/add_button.png" onclick="add()" /><br/><br/>
+                           <button name="addButton" type="button" onclick="add()">Add</button><br/><br/>
                         </td>
                         <td>
-                           <input name="clearButton" type="image" src="images/buttons/clear_button.png" onclick="clearList()" /><br/><br/>
+                           <button name="clearButton" type="button" onclick="clearList()">Clear List</button><br/><br/>
                         </td>
                     </tr></table>
                 <div disabled name="addTextarea" id="addTextarea" style="resize:none; overflow-y:auto; overflow-x:auto; width:100%; height:20%;">RESULTS - USERS CANNOT EDIT TEXTFIELD</div>
                 <div id="itemContainer">
-                    <input name="runAnalysisButton" type="image" id="runAnalysisButton" src="images/buttons/run_analysis_button.png" onclick="analyze()" />
+                    <button name="runAnalysisButton" type="button" id="runAnalysisButton" onclick="analyze()">Run Analysis</button>
                 </div>
             </div>
         </div>
