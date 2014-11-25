@@ -135,21 +135,21 @@ if (isset($_POST['element']) && isset($_POST['object']) && isset($_POST['ppm']) 
 
     if ($action == 'update') {
         if (!empty($element) && !empty($object) && !empty($ppm)) {
-
             if ($cm->updateContaminant($element, $object, $ppm)) {
                 echo json_encode(array("true", "Update Successful"));
+            }else{
+                echo json_encode(array("false", "Update Failed"));
             }
-
-            echo json_encode(array("false", "Update Failed"));
         }
     } else if ($action == 'insert') {
         if (!empty($element) && !empty($object) && !empty($ppm)) {
 
             if ($cm->insertContaminant($element, $object, $ppm)) {
                 echo json_encode(array("true", "Insert Successful"));
+            }else{
+                echo json_encode(array("false", "Insert Failed. Contaminant may already exist."));
             }
-
-            echo json_encode(array("false", "Insert Failed. Contaminant may already exist."));
+            
         }
     }else{
         echo json_encode(array("false", "Invalid parameters."));
