@@ -240,7 +240,7 @@ closeHeader($title);
             <input name="emailInput" id="emailInput" onchange="searchAccounts();"/>
         </div>
         <div id="createUser">
-            <input name="createNewUserButton" id="createNewUserButton" type="image" src="images/buttons/create_user_button.png" />
+            <button name="createNewUserButton" id="createNewUserButton" type="button">Create User</button>
         </div>
     </form>
 
