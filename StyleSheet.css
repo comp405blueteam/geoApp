@@ -284,6 +284,7 @@
     padding: 10px 20px;
     width: 520px;
     border-radius: 12px;
+    clear: both;
 }
 
 #reportHeader p:first-child{

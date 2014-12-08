@@ -105,7 +105,7 @@
             if(!empty($results)){
                 $date = strtotime( $results[0]['timestamp'] );
                 
-                echo '<div style="float:right;"><a href='.BASE_URL.'reports_logs.php?dcReportId='.$reportid.'><button type=button>CSV</button></a></div>';
+                echo '<div style="float:right; margin-bottom: 5px;"><a href='.BASE_URL.'reports_logs.php?dcReportId='.$reportid.'><button type=button>CSV</button></a></div>';
                 
                 echo '<div id="reportHeader">';
                     echo '<p>'.$results[0]['analysis_name'].'</p>';
