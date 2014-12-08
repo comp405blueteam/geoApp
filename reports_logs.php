@@ -3,7 +3,7 @@
  * Displays all reports and handles display of single reports
  * @author  George
  * @author  GUI: Paul and Tom
- */
+ */ 
 
     //start session, include functions
     session_start();
@@ -20,6 +20,65 @@
         
         getReports($reportid, $element, $date);
         exit;
+    }
+    
+    //sends csv report to user
+    if(isset($_GET['dcReportId'])){
+        $reportid = trim(sanitize($_GET['dcReportId']));
+        
+        if(!empty($reportid)){
+            error_reporting(0);
+            ini_set('error_reporting', E_NONE);
+            $sql = 
+            "
+            SELECT timestamp, analysis_name, notes, object_name, chemical_name, observed_level, danger_level, is_dangerous
+            FROM result 
+            JOIN contaminant USING (contam_id)
+            JOIN chemical USING (chemical_id)
+            JOIN object USING (object_id)
+            JOIN analysis USING (analysis_id)
+            WHERE analysis_id = ".$reportid."
+            ";
+            
+            $results = $db->getRset($sql);
+            
+            if(!empty($results)){
+                $date = strtotime( $results[0]['timestamp'] );
+                
+                $report = 
+                array(
+                    array("Report Name",$results[0]['analysis_name']),
+                    array("Notes",$results[0]['notes']),
+                    array("Report ID",date("m/d/y g:i:s A", $date)),
+                    array("",""),
+                    array('Element Name','Observed Level','Max Level PPM','Exceeds Max')
+                );
+                
+                for($i = 0;$i<count($results);$i++){
+                    $danger = "";
+                    if($results[$i]['is_dangerous'] == 1){
+                        $danger = "Yes";
+                    }else{
+                        $danger = "No";
+                    }
+                    
+                    $data = array($results[$i]['chemical_name'],$results[$i]['observed_level'],$results[$i]['danger_level'], $danger);
+                    
+                    $report[count($report)] = $data;
+                }
+                
+                start_send_file("report_export_" . date("Y-m-d") . ".csv");
+                echo create_csv_file($report);
+                exit;
+            }else{
+                echo "<h2>Analysis ".$reportid." cannot be found.</h2>";
+                exit;
+            }
+            
+        }else{
+            echo "<h2>Invalid analysis id.</h2>";
+            exit;
+        }
     }
     
     //displays a single report
@@ -45,6 +104,8 @@
             
             if(!empty($results)){
                 $date = strtotime( $results[0]['timestamp'] );
+                
+                echo '<div style="float:right;"><a href='.BASE_URL.'reports_logs.php?dcReportId='.$reportid.'><button type=button>CSV</button></a></div>';
                 
                 echo '<div id="reportHeader">';
                     echo '<p>'.$results[0]['analysis_name'].'</p>';
