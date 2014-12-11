@@ -211,7 +211,7 @@
     position:absolute;
     font-size: 20;
     top:6%;
-    left:30%;
+    left:18%;
     width:30%;
     height:15%;
 }
@@ -220,7 +220,25 @@
     position:absolute;
     font-size: 20;
     top:6%;
-    left:80%;
+    left:77%;
+    height:15%;
+}
+
+#accountBarName {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:2%;
+    width:30%;
+    height:15%;
+}
+
+#accountBarEmail {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:23%;
+    width:30%;
     height:15%;
 }
 
@@ -230,11 +248,20 @@
     cursor: hand;
 }
 
-#searchBarDate {
+#searchBarName {
     position:absolute;
     font-size: 20;
     top:6%;
-    left:57%;
+    left:38%;
+    width:30%;
+    height:15%;
+}
+
+#searchBarNotes {
+    position:absolute;
+    font-size: 20;
+    top:6%;
+    left:59%;
     width:30%;
     height:15%;
 }
@@ -243,7 +270,7 @@
     position:absolute;
     font-size: 20;
     top: 6%;
-    left: 90%;
+    left: 82%;
     width:10%;
     height:15%;
 }

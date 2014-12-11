@@ -12,13 +12,17 @@
    
     $db = Db::getDbInstance();
     
+    error_reporting(0);
+    ini_set('error_reporting', E_NONE);
+    
     //gets reports based on current cruteria, calls PHP function
-    if(isset($_POST['element']) && isset($_POST['reportid']) && isset($_POST['date'])){
+    if(isset($_POST['element']) && isset($_POST['reportid']) && isset($_POST['name']) && isset($_POST['notes'])){
         $element = trim(sanitize($_POST['element']));
         $reportid = trim(sanitize($_POST['reportid']));
-        $date = trim(sanitize($_POST['date']));
+        $rep_name = trim(sanitize($_POST['name']));
+        $notes = trim(sanitize($_POST['notes']));
         
-        getReports($reportid, $element, $date);
+        getReports($reportid, $element, $rep_name, $notes);
         exit;
     }
     
@@ -27,8 +31,6 @@
         $reportid = trim(sanitize($_GET['dcReportId']));
         
         if(!empty($reportid)){
-            error_reporting(0);
-            ini_set('error_reporting', E_NONE);
             $sql = 
             "
             SELECT timestamp, analysis_name, notes, object_name, chemical_name, observed_level, danger_level, is_dangerous
@@ -162,7 +164,7 @@
     openHeader($title);    
     
     //gets reports based on criteria
-    function getReports($reportId = "", $element = "", $date = ""){
+    function getReports($reportId = "", $element = "", $rep_name = "", $notes=""){
         $db = Db::getDbInstance();
         
         $sql = 
@@ -187,8 +189,12 @@
             $sql .= "AND analysis_id = ".$reportId;
         }
         
-        if(!empty($date)){
-            $sql .= "AND timestamp = ".$date;
+        if(!empty($rep_name)){
+            $sql .= "AND analysis_name LIKE '%".$rep_name."%'";
+        }
+        
+        if(!empty($notes)){
+            $sql .= "AND notes LIKE '%".$notes."%'";
         }
         
         $sql .= ");";
@@ -231,9 +237,10 @@
     function getReports(){
         var element = document.getElementById('elementInput').value;
         var reportid = document.getElementById('reportIdInput').value;
-        var date = document.getElementById('dateInput').value;
+        var name = document.getElementById('nameInput').value;
+        var notes = document.getElementById('notesInput').value;
         
-        var dataString = {element:element, reportid:reportid, date:date};
+        var dataString = {element:element, reportid:reportid, name:name, notes:notes};
         $.ajax({        
             type: "POST",
             url: <?php echo "'".BASE_URL."reports_logs.php'" ?>,
@@ -255,15 +262,18 @@
     <div id="content">
         <form name="contentForm" id="contentForm">
     	   <div id="searchBarReportID">
-    		  Report ID: <input name="reportIdInput" id="reportIdInput"/>
+    		  Report ID: <input name="reportIdInput" id="reportIdInput" size="5"/>
     	   </div>
     	   <div id="searchBarElement">
-    		  Element: <input name="elementInput" id="elementInput"/>
+    		  Element: <input name="elementInput" id="elementInput" size="15"/>
     	   </div>
-    	   <div id="searchBarDate">
-    		  Date: <input name="dateInput" id="dateInput"/>
+    	   <div id="searchBarName">
+    		  Name: <input name="nameInput" id="nameInput"/>
     	   </div>
-    	   <div id="searchBarSearchButton">
+            <div id="searchBarNotes">
+    		  Notes: <input name="notesInput" id="notesInput"/>
+    	   </div>
+           <div id="searchBarSearchButton">
                <button type="button" name="searchButton" id="searchButton" onclick="getReports();">Search</button>
     	   </div>
     	   <div id="mainContent">

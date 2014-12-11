@@ -231,11 +231,11 @@ closeHeader($title);
 
 <div id=content>
     <form id="makeUser" name ="makeUser" method="POST" action="manage_accounts.php">
-        <div id="searchBarReportID">
+        <div id="accountBarName">
             Name:
             <input name="userNameInput" id="userNameInput" onchange="searchAccounts();"/>
         </div>
-        <div id="searchBarElement">
+        <div id="accountBarEmail">
             Email:
             <input name="emailInput" id="emailInput" onchange="searchAccounts();"/>
         </div>
