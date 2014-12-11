@@ -574,8 +574,8 @@ closeHeader($title);
             <?php listContaminants(); ?>
         </div>
         <div id="editDatabaseButtons">
-            <button name="editElemButton" id="editElemButton" type="button" onclick="editChem();">Add Elements</button> &nbsp&nbsp
-            <button name="editObjButton" id="editObjButton" type="button" onclick="editObj();">Add Objects</button></div>
+            <button name="editElemButton" id="editElemButton" type="button" onclick="editChem();">Edit Elements</button> &nbsp&nbsp
+            <button name="editObjButton" id="editObjButton" type="button" onclick="editObj();">Edit Objects</button></div>
     </div>
 
 </div>

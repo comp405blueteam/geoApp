@@ -45,7 +45,7 @@ class Analysis{
 			
 		echo "<th align='left'>"."<p>Item Type</p>"."</th>";
 		echo "<th align='left'>"."<p>Element</p>"."</th>";
-		echo "<th align='left'>"."<p>Contaminant Level</p>"."</th>";
+		echo "<th align='left'>"."<p>Max Level PPM</p>"."</th>";
 			
 		echo "</tr>";
 		
