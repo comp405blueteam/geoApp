@@ -64,7 +64,7 @@ if (isset($_POST['notes']) & isset($_POST['analysisName'])){
 		// Return analysis ID
 		$sql = 
 			"
-			Select analysis_id
+			SELECT analysis_id
 			FROM analysis
 			WHERE analysis_name = '$name';
 			";
@@ -85,46 +85,6 @@ if (isset($_POST['element']) & isset($_POST['object']) & isset($_POST['ppm']) & 
     $analysisID = $_POST['analysisID'];
     $exceedsLimit;
     $maxPPM;
-
-    $sql = "
-            SELECT contaminant.danger_level
-            FROM contaminant
-            JOIN object
-            USING ( object_id ) 
-            JOIN chemical
-            USING ( chemical_id ) 
-            WHERE chemical.chemical_name = chemical.chemical_name
-            AND chemical.chemical_name =  '$element'
-            AND object.object_name =  '$object'
-            ";
-
-    $maxPPM = $db->getVal($sql);
-
-    //Sample exceeds limit
-    if ($ppm > $maxPPM) {
-        $exceedsLimit = 1;
-        $danger_row = "id='dangerous'";
-        $danger_image = "<img src='images/danger.png'>";
-        echo "<tr " . $danger_row . ">";
-    }
-
-    //Sample within limit
-    if ($ppm <= $maxPPM) {
-        $exceedsLimit = 0;
-        echo "<tr>";
-    }
-
-    echo "<td align='left'>" . $object . "</td>";
-    echo "<td align='left'>" . $element . "</td>";
-    echo "<td align='left'>" . $ppm . " PPM" . "</td>";
-    echo "<td align='left'>" . $maxPPM . " PPM" . "</td>";
-
-    //Sample exceeds limit
-    if ($ppm > $maxPPM) {
-        echo '<td>' . $danger_image . '</td>';
-    } else
-        echo "<td></td>";
-    echo "</tr>";
     
     //Get chemical id
     $sql = "
@@ -154,6 +114,40 @@ if (isset($_POST['element']) & isset($_POST['object']) & isset($_POST['ppm']) & 
             ";
       
     $contam_id = $db->getVal($sql);
+
+    $sql = "
+            SELECT contaminant.danger_level
+            FROM contaminant
+            WHERE contam_id = '".$contam_id."'
+            ";
+
+    $maxPPM = $db->getVal($sql);
+    
+    //Sample exceeds limit
+    if ($ppm > $maxPPM) {
+        $exceedsLimit = 1;
+        $danger_row = "id='dangerous'";
+        $danger_image = "<img src='images/danger.png'>";
+        echo "<tr " . $danger_row . ">";
+    }
+
+    //Sample within limit
+    if ($ppm <= $maxPPM) {
+        $exceedsLimit = 0;
+        echo "<tr>";
+    }
+
+    echo "<td align='left'>" . $object . "</td>";
+    echo "<td align='left'>" . $element . "</td>";
+    echo "<td align='left'>" . $ppm . " PPM" . "</td>";
+    echo "<td align='left'>" . $maxPPM . " PPM" . "</td>";
+
+    //Sample exceeds limit
+    if ($ppm > $maxPPM) {
+        echo '<td>' . $danger_image . '</td>';
+    } else
+        echo "<td></td>";
+    echo "</tr>";
     
     //Insert result
     $sql = 
