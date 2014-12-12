@@ -30,6 +30,48 @@ $sql = "
 
 $objects = $db->getRset($sql);
 
+if(isset($_POST['element']) & isset($_POST['object'])){
+    $element = trim(sanitize(cleanInput($_POST['element'])));
+    $object = trim(sanitize(cleanInput($_POST['object'])));
+    
+    //Get chemical id
+    $sql = "
+            SELECT chemical_id
+            FROM chemical
+            WHERE chemical.chemical_name = '$element'
+            ";
+
+    $chem_id = $db->getVal($sql);
+    
+    //Get object id
+    $sql = "
+            SELECT object_id
+            FROM object
+            WHERE object.object_name = '$object'
+            ";
+    
+    $object_id = $db->getVal($sql);
+    
+    //Get contaminant id
+    $sql = 
+            "
+            SELECT contam_id
+            FROM contaminant
+            WHERE chemical_id = '$chem_id'
+            AND object_id = '$object_id'
+            ";
+      
+    $contam_id = $db->getVal($sql);
+    
+    if(empty($contam_id)){
+        echo false;
+    }else{
+        echo true;
+    }
+    
+    exit();
+}
+
 // IF ajax query for adding item to analysis
 if (isset($_POST['element']) & isset($_POST['object']) & isset($_POST['ppm']) & !isset($_POST['flag'])) {
 
@@ -178,6 +220,31 @@ closeHeader($title);
     var addPPM = new Array;
     var results = new Array;
     var analysisID;
+    
+    function checkContam(){
+        var element = document.getElementById("elementSelect").value;
+        var object = document.getElementById("objectSelect").value;
+        
+        var dataString = {element: element, object: object};
+        
+        $.ajax({
+            type: "POST",
+            url: <?php echo "'" . BASE_URL . "full_analysis.php'" ?>,
+            data: dataString,
+            cache: false,
+            async: false,
+            success: function(result)
+            {
+                if(result == true){
+                    document.getElementById('addButton').disabled = false;
+                    document.getElementById('addButton').style.color = "white";
+                }else{
+                    document.getElementById('addButton').disabled = true;
+                    document.getElementById('addButton').style.color = "grey";                    
+                }
+            }
+        });
+    }
 
 //Runs when user clicks add button
     function add() {
@@ -420,12 +487,12 @@ closeHeader($title);
                 Analysis Name:<br/>
                 <input id="analysisName" name="analysisName" type="text" ><br/><br/>
                 Element:<br/>
-                <select name="elementSelect" id="elementSelect">
+                <select name="elementSelect" id="elementSelect" onchange="checkContam();">
                     <option value="temp">Select an element...</option>
 <?php $analysis->listChemicals($chemicals); ?>
                 </select><br/><br/>
                 Item type:<br/>
-                <select name="objectSelect" id="objectSelect">
+                <select name="objectSelect" id="objectSelect" onchange="checkContam();">
                     <option value="temp2">Select an item type...</option>
 <?php $analysis->listObjects($objects); ?>
                 </select><br/><br/>
@@ -434,7 +501,7 @@ closeHeader($title);
                 <textarea name="analysisNotes" id="analysisNotes" rows="2" placeholder="Enter analysis notes here..." style="resize:none; overflow-y:auto; overflow-x:auto; width:100%;"></textarea><br/><br/>
                 <table><tr>
                         <td>
-                           <button name="addButton" type="button" onclick="add()">Add</button><br/><br/>
+                            <button name="addButton" id = "addButton" type="button" onclick="add()" style="color:grey;" disabled="true">Add</button><br/><br/>
                         </td>
                         <td>
                            <button name="clearButton" type="button" onclick="clearList()">Clear List</button><br/><br/>
